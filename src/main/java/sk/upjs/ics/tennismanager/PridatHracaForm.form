@@ -27,27 +27,33 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
+                      <Component id="okButton" pref="61" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="zrusitButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="muzRadioButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="menoTextField" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="zenaRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="menoText" pref="100" max="32767" attributes="0"/>
-                          <Component id="krajinaTxt" max="32767" attributes="0"/>
+                          <Component id="krajinaTextField" max="32767" attributes="0"/>
+                          <Component id="priezviskoTextField" pref="100" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="priezviskoText" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
-                      <Component id="okButton" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="zrusitButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -60,16 +66,20 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="menoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="menoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="priezviskoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="priezviskoTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="krajinaTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="krajinaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="muzRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="zenaRadioButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="zrusitButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -85,21 +95,21 @@
         <Property name="text" type="java.lang.String" value="Meno:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="menoText">
+    <Component class="javax.swing.JTextField" name="menoTextField">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Priezvisko:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="priezviskoText">
+    <Component class="javax.swing.JTextField" name="priezviskoTextField">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Krajina:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="krajinaTxt">
+    <Component class="javax.swing.JTextField" name="krajinaTextField">
     </Component>
     <Component class="javax.swing.JButton" name="zrusitButton">
       <Properties>
@@ -112,6 +122,24 @@
     <Component class="javax.swing.JButton" name="okButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="OK"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pohlavie:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="muzRadioButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mu&#x17e;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="zenaRadioButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x17d;ena"/>
       </Properties>
     </Component>
   </SubComponents>

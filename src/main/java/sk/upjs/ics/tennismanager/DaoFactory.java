@@ -1,6 +1,7 @@
 package sk.upjs.ics.tennismanager;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,25 +17,25 @@ public enum DaoFactory {
     private ZapasDao zapasDao;
     private TurnajDao turnajDao;
     private JdbcTemplate jdbcTemplate;
-    private SQLServerDataSource dataSource;
+    private MysqlDataSource dataSource;
 
     public HracDao getHracDao() {
         if (this.hracDao == null) {
-            this.hracDao = new SQLServerHracDao(getJdbcTemplate());
+            this.hracDao = new MySqlHracDao(getJdbcTemplate());
         }
         return this.hracDao;
     }
 
     public ZapasDao getZapasDao() {
         if (this.zapasDao == null) {
-            this.zapasDao = new SQLServerZapasDao(getJdbcTemplate());
+            this.zapasDao = new MySqlZapasDao(getJdbcTemplate());
         }
         return this.zapasDao;
     }
 
     public TurnajDao getTurnajDao() {
         if (this.turnajDao == null) {
-            this.turnajDao = new SQLServerTurnajDao(getJdbcTemplate());
+            this.turnajDao = new MySqlTurnajDao(getJdbcTemplate());
         }
         return this.turnajDao;
     }
@@ -46,10 +47,10 @@ public enum DaoFactory {
         return this.jdbcTemplate;
     }
     
-    public SQLServerDataSource getDataSource() {
+    public MysqlDataSource getDataSource() {
         if (this.dataSource == null) {
-            SQLServerDataSource dataSource = new SQLServerDataSource();
-            dataSource.setURL("jdbc:sqlserver://localhost:1433;databaseName=tennismanager");
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setURL("jdbc:mysql://localhost/paz1c");
             dataSource.setUser("paz1c");
             dataSource.setPassword("paz1c");
             this.dataSource = dataSource;

@@ -17,5 +17,9 @@ public class SQLServerHracDao implements HracDao {
     public List<Hrac> dajVsetky() {
         return jdbcTemplate.query("SELECT * FROM hrac", mapovac);
     }
-    
+
+    @Override
+    public void pridat(Hrac hrac) {
+
+    }
 }

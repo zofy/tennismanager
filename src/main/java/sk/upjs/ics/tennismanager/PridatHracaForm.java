@@ -1,9 +1,13 @@
 package sk.upjs.ics.tennismanager;
 
-public class PridatHracaForm extends javax.swing.JFrame {
+import javax.swing.ButtonGroup;
 
+public class PridatHracaForm extends javax.swing.JFrame {
+    private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
+    
     public PridatHracaForm() {
         initComponents();
+        groupButton();
     }
 
     @SuppressWarnings("unchecked")
@@ -11,13 +15,16 @@ public class PridatHracaForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        menoText = new javax.swing.JTextField();
+        menoTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        priezviskoText = new javax.swing.JTextField();
+        priezviskoTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        krajinaTxt = new javax.swing.JTextField();
+        krajinaTextField = new javax.swing.JTextField();
         zrusitButton = new javax.swing.JButton();
         okButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        muzRadioButton = new javax.swing.JRadioButton();
+        zenaRadioButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pridať hráča");
@@ -36,6 +43,17 @@ public class PridatHracaForm extends javax.swing.JFrame {
         });
 
         okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Pohlavie:");
+
+        muzRadioButton.setText("Muž");
+
+        zenaRadioButton.setText("Žena");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -44,24 +62,28 @@ public class PridatHracaForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(okButton, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(zrusitButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
+                            .addComponent(jLabel4))
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(muzRadioButton)
+                            .addComponent(menoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(zenaRadioButton))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(menoText, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(krajinaTxt))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(priezviskoText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(okButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(zrusitButton)))
+                            .addComponent(krajinaTextField)
+                            .addComponent(priezviskoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -70,14 +92,18 @@ public class PridatHracaForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(menoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(priezviskoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(priezviskoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(krajinaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addComponent(krajinaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(muzRadioButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(zenaRadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(zrusitButton)
                     .addComponent(okButton))
@@ -91,6 +117,28 @@ public class PridatHracaForm extends javax.swing.JFrame {
        this.setVisible(false);
     }//GEN-LAST:event_zrusitButtonActionPerformed
 
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        Hrac hrac = new Hrac();
+        hrac.setMeno(menoTextField.getText());
+        hrac.setPriezvisko(priezviskoTextField.getText());
+        hrac.setKrajina(krajinaTextField.getText());
+        if (muzRadioButton.isSelected()) {
+            hrac.setPohlavie("muž");
+        } else {
+            hrac.setPohlavie("žena");
+        }
+        
+        hracDao.pridat(hrac);
+        this.setVisible(false);
+    }//GEN-LAST:event_okButtonActionPerformed
+
+    private void groupButton() {
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(muzRadioButton);
+        bg.add(zenaRadioButton);
+    }
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -127,10 +175,13 @@ public class PridatHracaForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField krajinaTxt;
-    private javax.swing.JTextField menoText;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField krajinaTextField;
+    private javax.swing.JTextField menoTextField;
+    private javax.swing.JRadioButton muzRadioButton;
     private javax.swing.JButton okButton;
-    private javax.swing.JTextField priezviskoText;
+    private javax.swing.JTextField priezviskoTextField;
+    private javax.swing.JRadioButton zenaRadioButton;
     private javax.swing.JButton zrusitButton;
     // End of variables declaration//GEN-END:variables
 }
