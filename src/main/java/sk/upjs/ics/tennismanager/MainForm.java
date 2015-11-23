@@ -1,9 +1,16 @@
 package sk.upjs.ics.tennismanager;
 
-public class MainForm extends javax.swing.JFrame {
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 
+public class MainForm extends javax.swing.JFrame {
+    HracTableModel hracTableModel = new HracTableModel();
+    HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
+    
     public MainForm() {
         initComponents();
+        refresh();
+        zarovnajCislaVTabulke();
     }
 
     @SuppressWarnings("unchecked")
@@ -39,20 +46,20 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         upravitHracaButton.setText("Upraviť...");
+        upravitHracaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upravitHracaButtonActionPerformed(evt);
+            }
+        });
 
         odstranitHracaButton.setText("Odstrániť");
-
-        hracTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        odstranitHracaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                odstranitHracaButtonActionPerformed(evt);
             }
-        ));
+        });
+
+        hracTable.setModel(hracTableModel);
         jScrollPane1.setViewportView(hracTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -204,19 +211,49 @@ public class MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void refresh() {
+        hracTableModel.refresh();
+    }
+    
+    private void zarovnajCislaVTabulke() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        hracTable.setDefaultRenderer(Integer.class, centerRenderer);
+    }
+    
     private void upravitTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upravitTurnajButtonActionPerformed
 
     }//GEN-LAST:event_upravitTurnajButtonActionPerformed
 
     private void pridatHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatHracaButtonActionPerformed
-        PridatHracaForm pridatHracaForm = new PridatHracaForm();
-        pridatHracaForm.setVisible(true);
+        HracForm hracForm = new HracForm(this, true, null);
+        hracForm.setVisible(true);
+        
+        refresh();
     }//GEN-LAST:event_pridatHracaButtonActionPerformed
 
     private void pridatTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatTurnajButtonActionPerformed
         PridatTurnajForm pridatTurnajForm = new PridatTurnajForm();
         pridatTurnajForm.setVisible(true);
     }//GEN-LAST:event_pridatTurnajButtonActionPerformed
+
+    private void odstranitHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odstranitHracaButtonActionPerformed
+        int vybranyRiadok = hracTable.getSelectedRow();
+        Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+        hracDao.odstranit(hrac);
+        
+        refresh();
+    }//GEN-LAST:event_odstranitHracaButtonActionPerformed
+
+    private void upravitHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upravitHracaButtonActionPerformed
+        int vybranyRiadok = hracTable.getSelectedRow();
+        Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+        
+        HracForm hracForm = new HracForm(this, true, hrac);
+        hracForm.setVisible(true);
+        
+        refresh();
+    }//GEN-LAST:event_upravitHracaButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

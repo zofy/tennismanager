@@ -6,4 +6,8 @@ public interface HracDao {
     public List<Hrac> dajVsetky();
     
     public void pridat(Hrac hrac);
+    
+    public void upravit(Hrac hrac);
+    
+    public void odstranit(Hrac hrac);
 }

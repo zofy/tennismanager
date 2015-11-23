@@ -27,4 +27,22 @@ public class MySqlHracDao implements HracDao {
                 hrac.getPohlavie(), hrac.getKrajina(), 0, 0, 0);
     }
     
+    @Override
+    public void upravit(Hrac hrac) {
+        String sql = "UPDATE hrac SET"
+                + " meno = ?,"
+                + " priezvisko = ?,"
+                + " krajina = ?,"
+                + " pohlavie = ?"
+                + " WHERE id = ?;";
+        jdbcTemplate.update(sql, hrac.getMeno(), hrac.getPriezvisko(),
+                hrac.getKrajina(), hrac.getPohlavie(), hrac.getId());
+    }
+    
+    @Override
+    public void odstranit(Hrac hrac) {
+        String sql = "DELETE FROM hrac WHERE id = ?";
+        
+        jdbcTemplate.update(sql, hrac.getId());
+    }
 }
