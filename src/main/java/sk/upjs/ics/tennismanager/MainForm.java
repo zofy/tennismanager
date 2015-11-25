@@ -58,6 +58,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         hracTable.setModel(hracTableModel);
+        hracTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hracTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(hracTable);
 
         javax.swing.GroupLayout hraciTabLayout = new javax.swing.GroupLayout(hraciTab);
@@ -210,6 +215,16 @@ public class MainForm extends javax.swing.JFrame {
 
         refresh();
     }//GEN-LAST:event_pridatHracaButtonActionPerformed
+
+    private void hracTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hracTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            int vybranyRiadok = hracTable.getSelectedRow();
+            Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+            
+            HracDetailForm hracDetailForm = new HracDetailForm(this, true, hrac);
+            hracDetailForm.setVisible(true);
+        }
+    }//GEN-LAST:event_hracTableMouseClicked
 
     private void refresh() {
         hracTableModel.refresh();

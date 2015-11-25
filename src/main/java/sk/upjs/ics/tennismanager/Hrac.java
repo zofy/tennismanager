@@ -10,6 +10,15 @@ public class Hrac {
     private String krajina;
     private int pocetVyhier;
     private int pocetPrehier;
+    private int majsterSveta;
+
+    public int getMajsterSveta() {
+        return majsterSveta;
+    }
+
+    public void setMajsterSveta(int majsterSveta) {
+        this.majsterSveta = majsterSveta;
+    }
     private double najrychlejsiePodanie;
 
     public int getId() {
