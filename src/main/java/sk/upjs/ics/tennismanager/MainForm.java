@@ -183,7 +183,7 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pridatTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatTurnajButtonActionPerformed
-        PridatTurnajForm pridatTurnajForm = new PridatTurnajForm();
+        TurnajForm pridatTurnajForm = new TurnajForm();
         pridatTurnajForm.setVisible(true);
     }//GEN-LAST:event_pridatTurnajButtonActionPerformed
 
