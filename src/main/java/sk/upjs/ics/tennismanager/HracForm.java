@@ -68,10 +68,21 @@ public class HracForm extends javax.swing.JDialog {
         jLabel4.setText("Pohlavie:");
 
         muzRadioButton.setText("Muž");
+        muzRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muzRadioButtonActionPerformed(evt);
+            }
+        });
 
         zenaRadioButton.setText("Žena");
 
         jLabel1.setText("Meno:");
+
+        menoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menoTextFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,6 +170,14 @@ public class HracForm extends javax.swing.JDialog {
         }
         this.setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed
+
+    private void menoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menoTextFieldActionPerformed
+
+    private void muzRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muzRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_muzRadioButtonActionPerformed
 
     private void groupButton() {
         ButtonGroup bg = new ButtonGroup();

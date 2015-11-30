@@ -126,6 +126,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Mu&#x17e;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="muzRadioButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="zenaRadioButton">
       <Properties>
@@ -138,6 +141,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="menoTextField">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menoTextFieldActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

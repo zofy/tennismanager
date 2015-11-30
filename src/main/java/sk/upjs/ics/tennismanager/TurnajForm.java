@@ -1,9 +1,13 @@
 package sk.upjs.ics.tennismanager;
 
 public class TurnajForm extends javax.swing.JFrame {
+    
+    private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
+    private Turnaj turnaj;
 
     public TurnajForm() {
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -32,6 +36,11 @@ public class TurnajForm extends javax.swing.JFrame {
         });
 
         okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,6 +90,20 @@ public class TurnajForm extends javax.swing.JFrame {
     private void zrusitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zrusitButtonActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_zrusitButtonActionPerformed
+
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        if (turnaj == null) {
+            turnaj = new Turnaj();
+            turnaj.setNazov(nazovText.getText());
+            turnaj.setRok(Integer.parseInt(rokText.getText()));
+            turnajDao.pridat(turnaj);
+        } else {
+            turnaj.setNazov(nazovText.getText());
+            turnaj.setRok(Integer.parseInt(rokText.getText()));
+            turnajDao.upravit(turnaj);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_okButtonActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
