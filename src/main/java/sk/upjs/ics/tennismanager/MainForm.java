@@ -5,9 +5,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class MainForm extends javax.swing.JFrame {
+
     HracTableModel hracTableModel = new HracTableModel();
     HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
-    
+
     public MainForm() {
         initComponents();
         refresh();
@@ -183,7 +184,7 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pridatTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatTurnajButtonActionPerformed
-        TurnajForm pridatTurnajForm = new TurnajForm();
+        TurnajForm pridatTurnajForm = new TurnajForm(this, true, null);
         pridatTurnajForm.setVisible(true);
     }//GEN-LAST:event_pridatTurnajButtonActionPerformed
 
@@ -220,7 +221,7 @@ public class MainForm extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             int vybranyRiadok = hracTable.getSelectedRow();
             Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
-            
+
             HracDetailForm hracDetailForm = new HracDetailForm(this, true, hrac);
             hracDetailForm.setVisible(true);
         }
@@ -229,13 +230,13 @@ public class MainForm extends javax.swing.JFrame {
     private void refresh() {
         hracTableModel.refresh();
     }
-    
+
     private void zarovnajCislaVTabulke() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         hracTable.setDefaultRenderer(Integer.class, centerRenderer);
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -266,7 +267,7 @@ public class MainForm extends javax.swing.JFrame {
                 new MainForm().setVisible(true);
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
