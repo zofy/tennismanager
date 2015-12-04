@@ -22,22 +22,21 @@ public class MySqlTurnajDao implements TurnajDao {
     @Override
     public void pridat(Turnaj turnaj) {
         String sql = "INSERT INTO turnaj VALUES(?, ?, ?, ?)";
-        jdbcTemplate.update(sql, null, turnaj.getNazov(), turnaj.getRok(), turnaj.getVitaz());
+        jdbcTemplate.update(sql, null, turnaj.getNazov(), turnaj.getRok(), null);
     }
 
     @Override
     public void upravit(Turnaj turnaj) {
         String sql = "UPDATE turnaj SET"
                 + " nazov = ?,"
-                + " rok = ?,"
-                + " vitaz = ?,"
+                + " rok = ?"
                 + " WHERE id = ?;";
-        jdbcTemplate.update(sql, turnaj.getNazov(), turnaj.getRok(), turnaj.getVitaz(), turnaj.getId());
+        jdbcTemplate.update(sql, turnaj.getNazov(), turnaj.getRok(), turnaj.getId());
     }
 
     @Override
     public void odstranit(Turnaj turnaj) {
-        String sql = "DELETE * FROM turnaj WHERE id = ? ";
+        String sql = "DELETE FROM turnaj WHERE id = ? ";
         jdbcTemplate.update(sql, turnaj.getId());
     }
 }

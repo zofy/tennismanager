@@ -3,16 +3,21 @@ package sk.upjs.ics.tennismanager;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableCellRenderer;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 public class MainForm extends javax.swing.JFrame {
 
     HracTableModel hracTableModel = new HracTableModel();
     HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
+    
+    TurnajTableModel turnajTableModel = new TurnajTableModel();
+    TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
 
     public MainForm() {
         initComponents();
-        refresh();
-        zarovnajCislaVTabulke();
+        refreshHraci();
+        refreshTurnaje();
+        zarovnajCislaVTabulkach();
     }
 
     @SuppressWarnings("unchecked")
@@ -100,6 +105,11 @@ public class MainForm extends javax.swing.JFrame {
         tabbedPane.addTab("Hráči", hraciTab);
 
         odstranitTurnajButton.setText("Odstrániť");
+        odstranitTurnajButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                odstranitTurnajButtonActionPerformed(evt);
+            }
+        });
 
         upravitTurnajButton.setText("Upraviť...");
         upravitTurnajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -115,17 +125,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        turnajTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        turnajTable.setModel(turnajTableModel);
         jScrollPane2.setViewportView(turnajTable);
 
         jButton1.setText("Nový zápas...");
@@ -186,10 +186,18 @@ public class MainForm extends javax.swing.JFrame {
     private void pridatTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatTurnajButtonActionPerformed
         TurnajForm pridatTurnajForm = new TurnajForm(this, true, null);
         pridatTurnajForm.setVisible(true);
+        
+        refreshTurnaje();
     }//GEN-LAST:event_pridatTurnajButtonActionPerformed
 
     private void upravitTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upravitTurnajButtonActionPerformed
+        int vybranyRiadok = turnajTable.getSelectedRow();
+        Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
 
+        TurnajForm turnajForm = new TurnajForm(this, true, turnaj);
+        turnajForm.setVisible(true);
+
+        refreshTurnaje();
     }//GEN-LAST:event_upravitTurnajButtonActionPerformed
 
     private void odstranitHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odstranitHracaButtonActionPerformed
@@ -197,7 +205,7 @@ public class MainForm extends javax.swing.JFrame {
         Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
         hracDao.odstranit(hrac);
 
-        refresh();
+        refreshHraci();
     }//GEN-LAST:event_odstranitHracaButtonActionPerformed
 
     private void upravitHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upravitHracaButtonActionPerformed
@@ -207,14 +215,14 @@ public class MainForm extends javax.swing.JFrame {
         HracForm hracForm = new HracForm(this, true, hrac);
         hracForm.setVisible(true);
 
-        refresh();
+        refreshHraci();
     }//GEN-LAST:event_upravitHracaButtonActionPerformed
 
     private void pridatHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatHracaButtonActionPerformed
         HracForm hracForm = new HracForm(this, true, null);
         hracForm.setVisible(true);
 
-        refresh();
+        refreshHraci();
     }//GEN-LAST:event_pridatHracaButtonActionPerformed
 
     private void hracTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hracTableMouseClicked
@@ -227,14 +235,30 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_hracTableMouseClicked
 
-    private void refresh() {
+    private void odstranitTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odstranitTurnajButtonActionPerformed
+        int vybranyRiadok = turnajTable.getSelectedRow();
+        Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+        turnajDao.odstranit(turnaj);
+
+        refreshTurnaje();
+    }//GEN-LAST:event_odstranitTurnajButtonActionPerformed
+
+    private void refreshHraci() {
         hracTableModel.refresh();
     }
+    
+    private void refreshTurnaje() {
+        turnajTableModel.refresh();
+    }
 
-    private void zarovnajCislaVTabulke() {
+    private void zarovnajCislaVTabulkach() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         hracTable.setDefaultRenderer(Integer.class, centerRenderer);
+        
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+        leftRenderer.setHorizontalAlignment(JLabel.LEFT);
+        turnajTable.setDefaultRenderer(Integer.class, leftRenderer);
     }
 
     public static void main(String args[]) {

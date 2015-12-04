@@ -36,7 +36,7 @@ public class HracTableModel extends AbstractTableModel {
             case 3:
                 return vybranyHrac.getPocetPrehier();
             default:
-                return 0;
+                return "???";
         }
     }
     
