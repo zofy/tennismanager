@@ -19,6 +19,16 @@ public class MySqlTurnajDao implements TurnajDao {
         
         return handler.getTurnaje();
     }
+    
+    @Override
+    public List<Turnaj> dajPodlaVitaza(int id) {
+        String sql = "SELECT * FROM turnaj LEFT OUTER JOIN hrac ON vitaz = hrac.id"
+                + " WHERE vitaz = ?";
+        TurnajRowCallbackHandler handler = new TurnajRowCallbackHandler();
+        jdbcTemplate.query(sql, handler, id);
+        
+        return handler.getTurnaje();
+    }
 
     @Override
     public void pridat(Turnaj turnaj) {

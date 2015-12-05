@@ -21,10 +21,10 @@ public class MySqlHracDao implements HracDao {
 
     @Override
     public void pridat(Hrac hrac) {
-        String sql = "INSERT INTO hrac VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO hrac VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         jdbcTemplate.update(sql, null, hrac.getMeno(), hrac.getPriezvisko(),
-                hrac.getPohlavie(), hrac.getKrajina(), 0, 0, 0, 0);
+                hrac.getPohlavie(), hrac.getKrajina(), 0, 0, 0);
     }
     
     @Override

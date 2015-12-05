@@ -37,4 +37,9 @@ public class Turnaj {
     public void setVitaz(Hrac vitaz) {
         this.vitaz = vitaz;
     }
+
+    @Override
+    public String toString() {
+        return this.nazov + " " + this.rok;
+    }
 }

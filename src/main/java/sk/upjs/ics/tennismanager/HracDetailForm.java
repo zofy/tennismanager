@@ -1,7 +1,11 @@
 package sk.upjs.ics.tennismanager;
 
-public class HracDetailForm extends javax.swing.JDialog {
+import java.util.List;
 
+public class HracDetailForm extends javax.swing.JDialog {
+    private Hrac hrac;
+    private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
+    
     public HracDetailForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -10,20 +14,11 @@ public class HracDetailForm extends javax.swing.JDialog {
     public HracDetailForm(java.awt.Frame parent, boolean modal, Hrac hrac) {
         super(parent, modal);
         initComponents();
+        this.hrac = hrac;
         
-        menoLabel.setText(hrac.getMeno());
-        priezviskoLabel.setText(hrac.getPriezvisko());
-        pohlavieLabel.setText(hrac.getPohlavie());
-        krajinaLabel.setText(hrac.getKrajina());
-        pocetVyhierLabel.setText(String.valueOf(hrac.getPocetVyhier()));
-        pocetPrehierLabel.setText(String.valueOf(hrac.getPocetPrehier()));
-        if (hrac.getPocetVyhier()+hrac.getPocetPrehier() == 0) {
-            uspesnostNaVyhruLabel.setText("0 %");
-        } else {
-            double uspesnost = (hrac.getPocetVyhier()*1.0)/(hrac.getPocetPrehier()+hrac.getPocetVyhier())*100;
-            uspesnostNaVyhruLabel.setText(String.valueOf((int) uspesnost) + " %");
-        }
-        najrychlejsiePodanieLabel.setText(String.valueOf(hrac.getNajrychlejsiePodanie()) + " km/h");
+        nastavLabely();
+        nastavVyhrateTurnaje();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -45,11 +40,11 @@ public class HracDetailForm extends javax.swing.JDialog {
         pocetPrehierLabel = new javax.swing.JLabel();
         najrychlejsiePodanieLabel = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         zrusitButton = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         uspesnostNaVyhruLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        vyhrateTurnajeList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,19 +85,6 @@ public class HracDetailForm extends javax.swing.JDialog {
 
         jLabel9.setText("Vyhraté turnaje:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         zrusitButton.setText("Zrušiť");
         zrusitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +97,8 @@ public class HracDetailForm extends javax.swing.JDialog {
         uspesnostNaVyhruLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         uspesnostNaVyhruLabel.setText(".....");
 
+        jScrollPane2.setViewportView(vyhrateTurnajeList);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,48 +106,50 @@ public class HracDetailForm extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(zrusitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(menoLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pohlavieLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(krajinaLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(priezviskoLabel)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pocetPrehierLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pocetVyhierLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(uspesnostNaVyhruLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(najrychlejsiePodanieLabel))))
-                    .addComponent(jLabel9)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(zrusitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(menoLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(pohlavieLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(krajinaLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(priezviskoLabel)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(pocetPrehierLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(pocetVyhierLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(uspesnostNaVyhruLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(najrychlejsiePodanieLabel))))
+                            .addComponent(jLabel9))
+                        .addGap(0, 77, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -197,7 +183,7 @@ public class HracDetailForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(zrusitButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -206,6 +192,27 @@ public class HracDetailForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void nastavLabely() {
+        menoLabel.setText(hrac.getMeno());
+        priezviskoLabel.setText(hrac.getPriezvisko());
+        pohlavieLabel.setText(hrac.getPohlavie());
+        krajinaLabel.setText(hrac.getKrajina());
+        pocetVyhierLabel.setText(String.valueOf(hrac.getPocetVyhier()));
+        pocetPrehierLabel.setText(String.valueOf(hrac.getPocetPrehier()));
+        if (hrac.getPocetVyhier()+hrac.getPocetPrehier() == 0) {
+            uspesnostNaVyhruLabel.setText("0 %");
+        } else {
+            double uspesnost = (hrac.getPocetVyhier()*1.0)/(hrac.getPocetPrehier()+hrac.getPocetVyhier())*100;
+            uspesnostNaVyhruLabel.setText(String.valueOf((int) uspesnost) + " %");
+        }
+        najrychlejsiePodanieLabel.setText(String.valueOf(hrac.getNajrychlejsiePodanie()) + " km/h");
+    }
+    
+    private void nastavVyhrateTurnaje() {
+        List<Turnaj> turnaje = turnajDao.dajPodlaVitaza(hrac.getId());
+        vyhrateTurnajeList.setListData(turnaje.toArray());
+    }
+    
     private void zrusitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zrusitButtonActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_zrusitButtonActionPerformed
@@ -259,8 +266,7 @@ public class HracDetailForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel krajinaLabel;
     private javax.swing.JLabel menoLabel;
     private javax.swing.JLabel najrychlejsiePodanieLabel;
@@ -269,6 +275,7 @@ public class HracDetailForm extends javax.swing.JDialog {
     private javax.swing.JLabel pohlavieLabel;
     private javax.swing.JLabel priezviskoLabel;
     private javax.swing.JLabel uspesnostNaVyhruLabel;
+    private javax.swing.JList vyhrateTurnajeList;
     private javax.swing.JButton zrusitButton;
     // End of variables declaration//GEN-END:variables
 }

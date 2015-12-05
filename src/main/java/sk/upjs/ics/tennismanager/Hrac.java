@@ -1,7 +1,5 @@
 package sk.upjs.ics.tennismanager;
 
-import java.util.Date;
-
 public class Hrac {
     private int id;
     private String meno;
