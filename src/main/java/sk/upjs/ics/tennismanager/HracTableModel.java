@@ -11,7 +11,7 @@ public class HracTableModel extends AbstractTableModel {
     private static final Class[] TYPY_STLPCOV = {String.class, String.class,
             Integer.class, Integer.class};
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
-    private List<Hrac> hraci = new LinkedList<Hrac>();
+    private List<Hrac> hraci = new LinkedList<>();
 
     @Override
     public int getRowCount() {

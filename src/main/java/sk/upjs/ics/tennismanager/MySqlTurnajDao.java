@@ -1,7 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
 import java.util.List;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MySqlTurnajDao implements TurnajDao {
@@ -12,11 +11,13 @@ public class MySqlTurnajDao implements TurnajDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @Override
     public List<Turnaj> dajVsetky() {
-        String sql = "SELECT * FROM turnaj";
-        BeanPropertyRowMapper<Turnaj> mapper = BeanPropertyRowMapper.newInstance(Turnaj.class);
-
-        return jdbcTemplate.query(sql, mapper);
+        String sql = "SELECT * FROM turnaj LEFT OUTER JOIN hrac ON vitaz = hrac.id";
+        TurnajRowCallbackHandler handler = new TurnajRowCallbackHandler();
+        jdbcTemplate.query(sql, handler);
+        
+        return handler.getTurnaje();
     }
 
     @Override

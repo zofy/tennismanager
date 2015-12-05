@@ -11,7 +11,7 @@ public class TurnajTableModel extends AbstractTableModel {
     private static final Class[] TYPY_STLPCOV = {String.class, Integer.class,
             String.class};
     private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
-    private List<Turnaj> turnaje = new LinkedList<Turnaj>();
+    private List<Turnaj> turnaje = new LinkedList<>();
     
     @Override
     public int getRowCount() {
