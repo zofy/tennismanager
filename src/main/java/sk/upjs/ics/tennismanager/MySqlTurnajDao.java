@@ -40,9 +40,10 @@ public class MySqlTurnajDao implements TurnajDao {
     public void upravit(Turnaj turnaj) {
         String sql = "UPDATE turnaj SET"
                 + " nazov = ?,"
-                + " rok = ?"
+                + " rok = ?,"
+                + " vitaz = ?"
                 + " WHERE id = ?;";
-        jdbcTemplate.update(sql, turnaj.getNazov(), turnaj.getRok(), turnaj.getId());
+        jdbcTemplate.update(sql, turnaj.getNazov(), turnaj.getRok(), turnaj.getVitaz(), turnaj.getId());
     }
 
     @Override

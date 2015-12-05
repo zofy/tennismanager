@@ -1,12 +1,10 @@
 package sk.upjs.ics.tennismanager;
 
+import java.util.List;
 import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableCellRenderer;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 public class MainForm extends javax.swing.JFrame {
-
     HracTableModel hracTableModel = new HracTableModel();
     HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
     
@@ -17,6 +15,7 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         refreshHraci();
         refreshTurnaje();
+        
         zarovnajCislaVTabulkach();
     }
 
@@ -203,9 +202,17 @@ public class MainForm extends javax.swing.JFrame {
     private void odstranitHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odstranitHracaButtonActionPerformed
         int vybranyRiadok = hracTable.getSelectedRow();
         Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+        
+        List<Turnaj> turnaje = turnajDao.dajPodlaVitaza(hrac.getId());
+        for (Turnaj turnaj : turnaje) {
+            turnaj.setVitaz(null);
+            turnajDao.upravit(turnaj);
+        }
+        
         hracDao.odstranit(hrac);
 
         refreshHraci();
+        refreshTurnaje();
     }//GEN-LAST:event_odstranitHracaButtonActionPerformed
 
     private void upravitHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upravitHracaButtonActionPerformed
