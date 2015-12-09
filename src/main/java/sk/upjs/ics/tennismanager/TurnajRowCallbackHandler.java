@@ -6,9 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.jdbc.core.RowCallbackHandler;
 
-public class TurnajRowCallbackHandler implements RowCallbackHandler{
+public class TurnajRowCallbackHandler implements RowCallbackHandler {
+
     private List<Turnaj> turnaje = new LinkedList<>();
-    
+
     @Override
     public void processRow(ResultSet rs) throws SQLException {
         Hrac vitaz = new Hrac();
@@ -20,13 +21,17 @@ public class TurnajRowCallbackHandler implements RowCallbackHandler{
         vitaz.setPocetVyhier(rs.getInt(10));
         vitaz.setPocetPrehier(rs.getInt(11));
         vitaz.setNajrychlejsiePodanie(rs.getDouble(12));
-        
+
         Turnaj turnaj = new Turnaj();
         turnaj.setId(rs.getInt(1));
         turnaj.setNazov(rs.getString(2));
         turnaj.setRok(rs.getInt(3));
-        turnaj.setVitaz(vitaz);
-        
+        if (vitaz.getMeno() == null) {
+            turnaj.setVitaz(null);
+        } else {
+            turnaj.setVitaz(vitaz);
+        }
+
         turnaje.add(turnaj);
     }
 

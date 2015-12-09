@@ -125,6 +125,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         turnajTable.setModel(turnajTableModel);
+        turnajTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                turnajTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(turnajTable);
 
         jButton1.setText("Nový zápas...");
@@ -249,6 +254,16 @@ public class MainForm extends javax.swing.JFrame {
 
         refreshTurnaje();
     }//GEN-LAST:event_odstranitTurnajButtonActionPerformed
+
+    private void turnajTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_turnajTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            int vybranyRiadok = turnajTable.getSelectedRow();
+            Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+            
+            TurnajDetailForm turnajDetailForm = new TurnajDetailForm(this, true, turnaj);
+            turnajDetailForm.setVisible(true);
+        }
+    }//GEN-LAST:event_turnajTableMouseClicked
 
     private void refreshHraci() {
         hracTableModel.refresh();
