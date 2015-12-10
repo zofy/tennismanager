@@ -8,8 +8,7 @@ public class Hrac {
     private String krajina;
     private int pocetVyhier;
     private int pocetPrehier;
-
-    private double najrychlejsiePodanie;
+    private int najrychlejsiePodanie;
 
     public int getId() {
         return id;
@@ -67,11 +66,16 @@ public class Hrac {
         this.pocetPrehier = pocetPrehier;
     }
 
-    public double getNajrychlejsiePodanie() {
+    public int getNajrychlejsiePodanie() {
         return najrychlejsiePodanie;
     }
 
-    public void setNajrychlejsiePodanie(double najrychlejsiePodanie) {
+    public void setNajrychlejsiePodanie(int najrychlejsiePodanie) {
         this.najrychlejsiePodanie = najrychlejsiePodanie;
+    }
+
+    @Override
+    public String toString() {
+        return this.meno + " " + this.priezvisko;
     }
 }

@@ -40,6 +40,6 @@ public class Turnaj {
 
     @Override
     public String toString() {
-        return this.nazov + " " + this.rok + this.getVitaz();
+        return this.nazov + " " + this.rok;
     }
 }

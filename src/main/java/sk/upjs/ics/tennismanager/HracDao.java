@@ -5,6 +5,8 @@ import java.util.List;
 public interface HracDao {
     public List<Hrac> dajVsetky();
     
+    public List<Hrac> dajVsetkyOkrem(int id);
+    
     public void pridat(Hrac hrac);
     
     public void upravit(Hrac hrac);

@@ -160,9 +160,12 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="odstranitTurnajButton" min="-2" pref="81" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="novyZapasButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane2" alignment="1" min="-2" pref="452" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" min="-2" pref="452" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -175,10 +178,10 @@
                       <Component id="jScrollPane2" min="-2" pref="220" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="pridatTurnajButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="upravitTurnajButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="odstranitTurnajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="novyZapasButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                   </Group>
@@ -256,10 +259,13 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="novyZapasButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nov&#xfd; z&#xe1;pas..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novyZapasButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

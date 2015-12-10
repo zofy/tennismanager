@@ -1,12 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-import javax.activation.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public enum DaoFactory {

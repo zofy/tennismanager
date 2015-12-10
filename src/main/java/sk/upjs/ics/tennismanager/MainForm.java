@@ -36,7 +36,7 @@ public class MainForm extends javax.swing.JFrame {
         pridatTurnajButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         turnajTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        novyZapasButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tennis manager");
@@ -132,7 +132,12 @@ public class MainForm extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(turnajTable);
 
-        jButton1.setText("Nový zápas...");
+        novyZapasButton.setText("Nový zápas...");
+        novyZapasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novyZapasButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout turnajeTabLayout = new javax.swing.GroupLayout(turnajeTab);
         turnajeTab.setLayout(turnajeTabLayout);
@@ -148,8 +153,10 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(odstranitTurnajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(novyZapasButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, turnajeTabLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         turnajeTabLayout.setVerticalGroup(
@@ -159,10 +166,10 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(turnajeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(pridatTurnajButton)
                     .addComponent(upravitTurnajButton)
-                    .addComponent(odstranitTurnajButton))
+                    .addComponent(odstranitTurnajButton)
+                    .addComponent(novyZapasButton))
                 .addGap(96, 96, 96))
         );
 
@@ -265,6 +272,14 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_turnajTableMouseClicked
 
+    private void novyZapasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novyZapasButtonActionPerformed
+        int vybranyRiadok = turnajTable.getSelectedRow();
+        Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+        
+        NovyTurnajForm novyTurnajForm = new NovyTurnajForm(this, true, turnaj);
+        novyTurnajForm.setVisible(true);
+    }//GEN-LAST:event_novyZapasButtonActionPerformed
+
     private void refreshHraci() {
         hracTableModel.refresh();
     }
@@ -319,9 +334,9 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable hracTable;
     private javax.swing.JPanel hraciTab;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton novyZapasButton;
     private javax.swing.JButton odstranitHracaButton;
     private javax.swing.JButton odstranitTurnajButton;
     private javax.swing.JButton pridatHracaButton;

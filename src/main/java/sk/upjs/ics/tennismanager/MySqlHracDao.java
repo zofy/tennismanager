@@ -18,6 +18,14 @@ public class MySqlHracDao implements HracDao {
         
         return jdbcTemplate.query(sql, mapper);
     }
+    
+    @Override
+    public List<Hrac> dajVsetkyOkrem(int id) {
+        String sql = "SELECT * FROM hrac WHERE id <> ?";
+        BeanPropertyRowMapper<Hrac> mapper = BeanPropertyRowMapper.newInstance(Hrac.class);
+        
+        return jdbcTemplate.query(sql, mapper, id);     
+    }
 
     @Override
     public void pridat(Hrac hrac) {

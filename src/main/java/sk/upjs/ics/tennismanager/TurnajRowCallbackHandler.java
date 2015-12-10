@@ -20,7 +20,7 @@ public class TurnajRowCallbackHandler implements RowCallbackHandler {
         vitaz.setKrajina(rs.getString(9));
         vitaz.setPocetVyhier(rs.getInt(10));
         vitaz.setPocetPrehier(rs.getInt(11));
-        vitaz.setNajrychlejsiePodanie(rs.getDouble(12));
+        vitaz.setNajrychlejsiePodanie(rs.getInt(12));
 
         Turnaj turnaj = new Turnaj();
         turnaj.setId(rs.getInt(1));
