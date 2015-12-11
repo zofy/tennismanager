@@ -276,7 +276,7 @@ public class MainForm extends javax.swing.JFrame {
         int vybranyRiadok = turnajTable.getSelectedRow();
         Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
         
-        NovyTurnajForm novyTurnajForm = new NovyTurnajForm(this, true, turnaj);
+        NovyZapasForm novyTurnajForm = new NovyZapasForm(this, true, turnaj);
         novyTurnajForm.setVisible(true);
     }//GEN-LAST:event_novyZapasButtonActionPerformed
 

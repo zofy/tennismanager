@@ -54,8 +54,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="okButton" min="-2" pref="61" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="zacatButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="zrusitButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -87,7 +87,7 @@
               <EmptySpace pref="28" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="zrusitButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="zacatButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -112,11 +112,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zrusitButtonActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="okButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ok"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="hrac1ComboBox">
     </Component>
@@ -143,6 +138,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="2"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="zacatButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Za&#x10d;a&#x165;..."/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zacatButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

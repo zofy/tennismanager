@@ -6,18 +6,18 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.ButtonGroup;
 
-public class NovyTurnajForm extends javax.swing.JDialog {
+public class NovyZapasForm extends javax.swing.JDialog {
     private Turnaj turnaj;
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
-    private Hrac vybranyHrac1;
-    private Hrac vybranyHrac2;
+    //private Hrac vybranyHrac1;
+    //private Hrac vybranyHrac2;
 
-    public NovyTurnajForm(java.awt.Frame parent, boolean modal) {
+    public NovyZapasForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public NovyTurnajForm(java.awt.Frame parent, boolean modal, Turnaj turnaj) {
+    public NovyZapasForm(java.awt.Frame parent, boolean modal, Turnaj turnaj) {
         super(parent, modal);
         initComponents();
         this.turnaj = turnaj;
@@ -58,7 +58,6 @@ public class NovyTurnajForm extends javax.swing.JDialog {
         sety3RadioButton = new javax.swing.JRadioButton();
         sety4RadioButton = new javax.swing.JRadioButton();
         zrusitButton = new javax.swing.JButton();
-        okButton = new javax.swing.JButton();
         hrac1ComboBox = new javax.swing.JComboBox();
         hrac2ComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -66,6 +65,7 @@ public class NovyTurnajForm extends javax.swing.JDialog {
         typComboBox = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         sety2RadioButton = new javax.swing.JRadioButton();
+        zacatButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,8 +80,6 @@ public class NovyTurnajForm extends javax.swing.JDialog {
             }
         });
 
-        okButton.setText("Ok");
-
         jLabel1.setText("vs");
 
         jLabel3.setText("Typ:");
@@ -89,6 +87,13 @@ public class NovyTurnajForm extends javax.swing.JDialog {
         jLabel4.setText("Počet víťazných setov:");
 
         sety2RadioButton.setText("2");
+
+        zacatButton.setText("Začať...");
+        zacatButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zacatButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,8 +125,8 @@ public class NovyTurnajForm extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(zacatButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(zrusitButton)))
                 .addContainerGap())
         );
@@ -146,7 +151,7 @@ public class NovyTurnajForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(zrusitButton)
-                    .addComponent(okButton))
+                    .addComponent(zacatButton))
                 .addContainerGap())
         );
 
@@ -156,6 +161,25 @@ public class NovyTurnajForm extends javax.swing.JDialog {
     private void zrusitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zrusitButtonActionPerformed
         setVisible(false);
     }//GEN-LAST:event_zrusitButtonActionPerformed
+
+    private void zacatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zacatButtonActionPerformed
+        this.setVisible(false);
+        
+        Hrac hrac1 = (Hrac) hrac1ComboBox.getSelectedItem();
+        Hrac hrac2 = (Hrac) hrac2ComboBox.getSelectedItem();
+        String typ = (String) typComboBox.getSelectedItem();
+        int pocetVitazychSetov;
+        if (sety2RadioButton.isSelected()) {
+            pocetVitazychSetov = 2;
+        } else if (sety3RadioButton.isSelected()) {
+            pocetVitazychSetov = 3;
+        } else {
+            pocetVitazychSetov = 4;
+        }
+        PriebehZapasuForm priebehZapasuForm = new PriebehZapasuForm(hrac1, hrac2,
+                turnaj, typ, pocetVitazychSetov);
+        priebehZapasuForm.setVisible(true);
+    }//GEN-LAST:event_zacatButtonActionPerformed
 
     private void groupButton() {
         ButtonGroup bg = new ButtonGroup();
@@ -196,20 +220,21 @@ public class NovyTurnajForm extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovyTurnajForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovyZapasForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovyTurnajForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovyZapasForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovyTurnajForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovyZapasForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovyTurnajForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovyZapasForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NovyTurnajForm dialog = new NovyTurnajForm(new javax.swing.JFrame(), true);
+                NovyZapasForm dialog = new NovyZapasForm(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -227,11 +252,11 @@ public class NovyTurnajForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JButton okButton;
     private javax.swing.JRadioButton sety2RadioButton;
     private javax.swing.JRadioButton sety3RadioButton;
     private javax.swing.JRadioButton sety4RadioButton;
     private javax.swing.JComboBox typComboBox;
+    private javax.swing.JButton zacatButton;
     private javax.swing.JButton zrusitButton;
     // End of variables declaration//GEN-END:variables
 }
