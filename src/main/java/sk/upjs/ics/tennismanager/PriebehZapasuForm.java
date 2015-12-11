@@ -13,6 +13,14 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
     private Turnaj turnaj;
     private String typ;
     private int pocetVitaznychSetov;
+    private int bodyHrac1;
+    private int bodyHrac2;
+    private int gemyHrac1;
+    private int gemyHrac2;
+    private int setyHrac1;
+    private int setyHrac2;
+    
+    private static final int ADVANTAGE = 50;
     
     public PriebehZapasuForm() {
         initComponents();
@@ -76,7 +84,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         rychlostPodaniaHrac2Txt = new javax.swing.JTextField();
         strednyPanel = new javax.swing.JPanel();
-        stavSetyLabel = new javax.swing.JLabel();
+        stavGemyLabel = new javax.swing.JLabel();
         stavBodyLabel = new javax.swing.JLabel();
         zmenaPodaniaButton = new javax.swing.JButton();
         sety1Label = new javax.swing.JLabel();
@@ -107,6 +115,11 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
         podanieHrac1Label.setText(".");
 
         hrac1PlusBod.setText("+");
+        hrac1PlusBod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hrac1PlusBodActionPerformed(evt);
+            }
+        });
 
         esoHrac1.setText("Eso");
 
@@ -167,6 +180,11 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
         podanieHrac2Label.setText(".");
 
         hrac2PlusBod.setText("+");
+        hrac2PlusBod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hrac2PlusBodActionPerformed(evt);
+            }
+        });
 
         esoHrac2.setText("Eso");
 
@@ -222,8 +240,8 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
 
         strednyPanel.setBackground(new java.awt.Color(204, 255, 204));
 
-        stavSetyLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        stavSetyLabel.setText("0 - 0");
+        stavGemyLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        stavGemyLabel.setText("0 - 0");
 
         stavBodyLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         stavBodyLabel.setText("0 - 0");
@@ -259,7 +277,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                                 .addGap(42, 42, 42)
                                 .addGroup(strednyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(stavBodyLabel)
-                                    .addComponent(stavSetyLabel)))
+                                    .addComponent(stavGemyLabel)))
                             .addGroup(strednyPanelLayout.createSequentialGroup()
                                 .addGap(45, 45, 45)
                                 .addGroup(strednyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +296,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
             strednyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(strednyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(stavSetyLabel)
+                .addComponent(stavGemyLabel)
                 .addGap(18, 18, 18)
                 .addComponent(stavBodyLabel)
                 .addGap(37, 37, 37)
@@ -350,6 +368,66 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void hrac1PlusBodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hrac1PlusBodActionPerformed
+        switch (bodyHrac1) {
+            case 0:
+                bodyHrac1 = 15;
+                break;
+            case 15:
+                bodyHrac1 = 30;
+                break;
+            case 30:
+                bodyHrac1 = 40;
+                break;
+            case 40:
+                if (bodyHrac2 == 40)
+                    bodyHrac1 = ADVANTAGE;
+                else if (bodyHrac2 == ADVANTAGE)
+                    bodyHrac2 = 40;
+                else {
+                    bodyHrac1 = 0;
+                    bodyHrac2 = 0;
+                    //???
+                }
+                break;
+            case ADVANTAGE:
+                bodyHrac1 = 0;
+                bodyHrac2 = 0;
+                //???
+        }
+        stavBodyLabel.setText(bodyHrac1 + " - " + bodyHrac2);
+    }//GEN-LAST:event_hrac1PlusBodActionPerformed
+
+    private void hrac2PlusBodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hrac2PlusBodActionPerformed
+        switch (bodyHrac2) {
+            case 0:
+                bodyHrac2 = 15;
+                break;
+            case 15:
+                bodyHrac2 = 30;
+                break;
+            case 30:
+                bodyHrac2 = 40;
+                break;
+            case 40:
+                if (bodyHrac1 == 40)
+                    bodyHrac2 = ADVANTAGE;
+                else if (bodyHrac1 == ADVANTAGE)
+                    bodyHrac1 = 40;
+                else {
+                    bodyHrac1 = 0;
+                    bodyHrac2 = 0;
+                    //???
+                }
+                break;
+            case ADVANTAGE:
+                bodyHrac1 = 0;
+                bodyHrac2 = 0;
+                //???
+        }
+        stavBodyLabel.setText(bodyHrac1 + " - " + bodyHrac2);
+    }//GEN-LAST:event_hrac2PlusBodActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -409,7 +487,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
     private javax.swing.JLabel sety7Label;
     private javax.swing.JComboBox statistikyComboBox;
     private javax.swing.JLabel stavBodyLabel;
-    private javax.swing.JLabel stavSetyLabel;
+    private javax.swing.JLabel stavGemyLabel;
     private javax.swing.JPanel strednyPanel;
     private javax.swing.JLabel zapasLabel;
     private javax.swing.JButton zmenaPodaniaButton;

@@ -183,6 +183,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hrac1PlusBodActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="esoHrac1">
           <Properties>
@@ -293,6 +296,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hrac2PlusBodActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="esoHrac2">
           <Properties>
@@ -335,7 +341,7 @@
                                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="stavBodyLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="stavSetyLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="stavGemyLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -364,7 +370,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="stavSetyLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="stavGemyLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="stavBodyLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -389,7 +395,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="stavSetyLabel">
+        <Component class="javax.swing.JLabel" name="stavGemyLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="1"/>
