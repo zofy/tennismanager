@@ -19,7 +19,10 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         nazovLabel.setText(turnaj.getNazov());
         rokLabel.setText(String.valueOf(turnaj.getRok()));
         Hrac vitaz = turnaj.getVitaz();
-        vitazLabel.setText(vitaz.getMeno() + " " + vitaz.getPriezvisko());
+        if (vitaz == null)
+            vitazLabel.setText("-");
+        else
+            vitazLabel.setText(vitaz.getMeno() + " " + vitaz.getPriezvisko());
     }
 
     @SuppressWarnings("unchecked")

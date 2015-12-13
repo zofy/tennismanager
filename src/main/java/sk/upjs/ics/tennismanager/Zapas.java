@@ -9,8 +9,7 @@ public class Zapas {
     private Turnaj turnaj;
     private int stavHrac1;
     private int stavHrac2;
-    private String setyHrac1;
-    private String setyHrac2;
+    private String sety;
     private int najrychlejsiePodanie;
     private Hrac najrychlejsiePodanieHrac;
     private Time cas;
@@ -78,20 +77,12 @@ public class Zapas {
         this.stavHrac2 = stavHrac2;
     }
 
-    public String getSetyHrac1() {
-        return setyHrac1;
+    public String getSety() {
+        return sety;
     }
 
-    public void setSetyHrac1(String setyHrac1) {
-        this.setyHrac1 = setyHrac1;
-    }
-
-    public String getSetyHrac2() {
-        return setyHrac2;
-    }
-
-    public void setSetyHrac2(String setyHrac2) {
-        this.setyHrac2 = setyHrac2;
+    public void setSety(String sety) {
+        this.sety = sety;
     }
 
     public int getNajrychlejsiePodanie() {
