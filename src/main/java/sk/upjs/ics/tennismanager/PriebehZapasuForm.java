@@ -599,10 +599,13 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
         if (setyHrac1 == pocetVitaznychSetov || setyHrac2 == pocetVitaznychSetov) {
             casovac.stop();
             
-            if (setyHrac1 > setyHrac2)
+            if (setyHrac1 > setyHrac2) {
                 hrac1.setPocetVyhier(hrac1.getPocetVyhier() + 1);
-            else
+                hrac2.setPocetPrehier(hrac2.getPocetPrehier() + 1);
+            } else {
                 hrac2.setPocetVyhier(hrac2.getPocetVyhier() + 1);
+                hrac1.setPocetPrehier(hrac1.getPocetPrehier() + 1);
+            }
             
             Zapas zapas = new Zapas();
             zapas.setHrac1(hrac1);
@@ -614,7 +617,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                     + "   " + gemy4Label.getText() + "   " + gemy5Label.getText() + "   " + gemy6Label.getText()
                     + "   " + gemy7Label.getText());
             zapas.setNajrychlejsiePodanie(najrychlejsiePodanie);
-            zapas.setNajrychlejsiePodanieHrac(najrychlejsiePodanieHrac);
+            /*!!!!!!!*/ zapas.setNajrychlejsiePodanieHrac(hrac1); //!!!!!!!!
             zapas.setCas(cas);
             zapas.setEsaHrac1(esaHrac1);
             zapas.setEsaHrac2(esaHrac2);

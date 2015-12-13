@@ -123,6 +123,9 @@ public class KoniecZapasuForm extends javax.swing.JDialog {
 
     private void ulozitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulozitButtonActionPerformed
         zapasDao.pridaj(zapas);
+        hracDao.upravit(zapas.getHrac1());
+        hracDao.upravit(zapas.getHrac2());
+        
         this.setVisible(false);
     }//GEN-LAST:event_ulozitButtonActionPerformed
 
