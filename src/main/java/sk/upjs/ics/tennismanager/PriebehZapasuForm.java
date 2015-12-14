@@ -616,20 +616,24 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
             zapas.setSety(gemy1Label.getText() + "   " + gemy2Label.getText() + "   " + gemy3Label.getText()
                     + "   " + gemy4Label.getText() + "   " + gemy5Label.getText() + "   " + gemy6Label.getText()
                     + "   " + gemy7Label.getText());
-            zapas.setNajrychlejsiePodanie(najrychlejsiePodanie);
-            /*!!!!!!!*/ zapas.setNajrychlejsiePodanieHrac(hrac1); //!!!!!!!!
+            /*!!!!!!!*/ zapas.setNajrychlejsiePodanie(najrychlejsiePodanie);
+            /*!!!!!!!*/ zapas.setNajrychlejsiePodanieHrac(hrac1);
             zapas.setCas(cas);
             zapas.setEsaHrac1(esaHrac1);
             zapas.setEsaHrac2(esaHrac2);
             zapas.setOkoHrac1(okaHrac1);
             zapas.setOkoHrac2(okaHrac2);
-
-            zapas.setUspesnostPodaniaHrac1(0);
-            zapas.setUspesnostPodaniaHrac2(0);
-
+            /*!!!!!!!*/ zapas.setUspesnostPodaniaHrac1(0);
+            /*!!!!!!!*/ zapas.setUspesnostPodaniaHrac2(0);
             zapas.setTyp(typ);
             
-            
+            if (this.typ.equals("Finále")) {
+                if (setyHrac1 > setyHrac2)
+                    turnaj.setVitaz(hrac1);
+                else
+                    turnaj.setVitaz(hrac2);
+            }
+                        
             KoniecZapasuForm koniecZapasuForm = new KoniecZapasuForm(this, true, zapas);
             koniecZapasuForm.setVisible(true);
         }

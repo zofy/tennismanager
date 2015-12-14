@@ -18,7 +18,6 @@ public class HracDetailForm extends javax.swing.JDialog {
         
         nastavLabely();
         nastavVyhrateTurnaje();
-        
     }
 
     @SuppressWarnings("unchecked")

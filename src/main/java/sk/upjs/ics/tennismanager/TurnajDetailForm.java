@@ -2,6 +2,7 @@ package sk.upjs.ics.tennismanager;
 
 public class TurnajDetailForm extends javax.swing.JDialog {
     private Turnaj turnaj;
+    private ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
     
     public TurnajDetailForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -13,9 +14,6 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         initComponents();
         this.turnaj = turnaj;
         
-        nazovLabel.setAlignmentX(CENTER_ALIGNMENT);
-        rokLabel.setAlignmentX(CENTER_ALIGNMENT);
-        
         nazovLabel.setText(turnaj.getNazov());
         rokLabel.setText(String.valueOf(turnaj.getRok()));
         Hrac vitaz = turnaj.getVitaz();
@@ -23,6 +21,8 @@ public class TurnajDetailForm extends javax.swing.JDialog {
             vitazLabel.setText("-");
         else
             vitazLabel.setText(vitaz.getMeno() + " " + vitaz.getPriezvisko());
+        
+        zapasyList.setListData(zapasDao.dajPodlaTurnaja(turnaj.getId()).toArray());
     }
 
     @SuppressWarnings("unchecked")
@@ -34,7 +34,7 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         vitazLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        zapasyList = new javax.swing.JList();
         zrusitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -50,7 +50,7 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         vitazLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         vitazLabel.setText("....");
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(zapasyList);
 
         zrusitButton.setText("Zrušiť");
         zrusitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -152,11 +152,11 @@ public class TurnajDetailForm extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nazovLabel;
     private javax.swing.JLabel rokLabel;
     private javax.swing.JLabel vitazLabel;
+    private javax.swing.JList zapasyList;
     private javax.swing.JButton zrusitButton;
     // End of variables declaration//GEN-END:variables
 }

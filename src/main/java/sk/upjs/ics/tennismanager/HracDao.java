@@ -7,6 +7,8 @@ public interface HracDao {
     
     public List<Hrac> dajVsetkyOkrem(int id);
     
+    public List<Hrac> dajPodlaId(int id);
+    
     public void pridat(Hrac hrac);
     
     public void upravit(Hrac hrac);

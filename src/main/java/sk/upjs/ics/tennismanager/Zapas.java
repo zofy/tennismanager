@@ -156,6 +156,11 @@ public class Zapas {
     public void setUspesnostPodaniaHrac2(int uspesnostPodaniaHrac2) {
         this.uspesnostPodaniaHrac2 = uspesnostPodaniaHrac2;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.typ + ":   " + this.hrac1.getMeno() + " " + this.hrac1.getPriezvisko() +
+                "   " + this.stavHrac1 + "-" + this.stavHrac2 + "   " + this.hrac2.getMeno() +
+                " " + this.hrac2.getPriezvisko();
+    }
 }

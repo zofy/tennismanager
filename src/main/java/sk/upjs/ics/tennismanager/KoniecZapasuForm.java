@@ -2,8 +2,9 @@ package sk.upjs.ics.tennismanager;
 
 public class KoniecZapasuForm extends javax.swing.JDialog {
     private Zapas zapas;
-    private ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
+    private ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
+    private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
     
     public KoniecZapasuForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -125,6 +126,7 @@ public class KoniecZapasuForm extends javax.swing.JDialog {
         zapasDao.pridaj(zapas);
         hracDao.upravit(zapas.getHrac1());
         hracDao.upravit(zapas.getHrac2());
+        turnajDao.upravit(zapas.getTurnaj());
         
         this.setVisible(false);
     }//GEN-LAST:event_ulozitButtonActionPerformed
