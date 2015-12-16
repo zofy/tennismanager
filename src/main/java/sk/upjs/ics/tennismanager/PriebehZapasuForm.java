@@ -2,11 +2,14 @@ package sk.upjs.ics.tennismanager;
 
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
@@ -42,7 +45,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
 
     private static final int ADVANTAGE = 50;
 
-    Timer casovac;
+    private Timer casovac;
 
     public PriebehZapasuForm() {
         initComponents();
@@ -96,6 +99,46 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                     najrychlejsiePodanieHrac = hrac2;
                 }
                 rychlostPodaniaHrac2Txt.setText("");
+            }
+        });
+
+        statistikyComboBox.addItem("Esá");
+        statistikyComboBox.addItem("Oko");
+        statistikyComboBox.addItem("Najrýchlejšie podanie");
+        statistikyComboBox.addItem("Úspešnosť podania");
+
+        statistikyComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String typStatistiky = (String) statistikyComboBox.getSelectedItem();
+                int hodnotaHrac1 = 0;
+                int hodnotaHrac2 = 0;
+                String nazovOkna;
+                
+                switch (statistikyComboBox.getSelectedIndex()) {
+                    case 0: //Esá
+                        hodnotaHrac1 = esaHrac1;
+                        hodnotaHrac2 = esaHrac2;
+                        nazovOkna = "Esá";
+                        break;
+                    case 1: //Oko
+                        hodnotaHrac1 = okaHrac1;
+                        hodnotaHrac2 = okaHrac2;
+                        nazovOkna = "Oko";
+                        break;
+                    case 2: //Najrychlejsie podanie
+                        return;
+                    case 3:
+                        hodnotaHrac1 = uspesnostPodaniaHrac1;
+                        hodnotaHrac2 = uspesnostPodaniaHrac2;
+                        nazovOkna = "Úspešnosť podania";
+                        break;
+                    default:
+                        return;
+                }
+                StatistikyDialogForm statistikyDialogForm = new StatistikyDialogForm(null, true,
+                        hrac1, hrac2, typStatistiky, hodnotaHrac1, hodnotaHrac2, nazovOkna);
+                statistikyDialogForm.setVisible(true);
             }
         });
 
@@ -403,7 +446,22 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
+        statistikyComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                statistikyComboBoxPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
+
         zrusitButton.setText("Zrušiť");
+        zrusitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zrusitButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -482,7 +540,13 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 gemyHrac1++;
                 spocitajAVypis();
         }
-        stavBodyLabel.setText(bodyHrac1 + " - " + bodyHrac2);
+        if (bodyHrac1 == ADVANTAGE) {
+            stavBodyLabel.setText("Ad. - " + bodyHrac2);
+        } else if (bodyHrac2 == ADVANTAGE) {
+            stavBodyLabel.setText(bodyHrac1 + " - Ad.");
+        } else {
+            stavBodyLabel.setText(bodyHrac1 + " - " + bodyHrac2);
+        }
     }//GEN-LAST:event_hrac1PlusBodActionPerformed
 
     private void hrac2PlusBodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hrac2PlusBodActionPerformed
@@ -514,7 +578,14 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 gemyHrac2++;
                 spocitajAVypis();
         }
-        stavBodyLabel.setText(bodyHrac1 + " - " + bodyHrac2);
+
+        if (bodyHrac1 == ADVANTAGE) {
+            stavBodyLabel.setText("Ad. - " + bodyHrac2);
+        } else if (bodyHrac2 == ADVANTAGE) {
+            stavBodyLabel.setText(bodyHrac1 + " - Ad.");
+        } else {
+            stavBodyLabel.setText(bodyHrac1 + " - " + bodyHrac2);
+        }
     }//GEN-LAST:event_hrac2PlusBodActionPerformed
 
     private void zmenaPodaniaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zmenaPodaniaButtonActionPerformed
@@ -557,6 +628,15 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_rychlostPodaniaHrac1TxtMouseClicked
 
+    private void statistikyComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_statistikyComboBoxPopupMenuWillBecomeInvisible
+        ////
+    }//GEN-LAST:event_statistikyComboBoxPopupMenuWillBecomeInvisible
+
+    private void zrusitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zrusitButtonActionPerformed
+        casovac.stop();
+        this.setVisible(false);
+    }//GEN-LAST:event_zrusitButtonActionPerformed
+
     public void spocitajAVypis() {
         switch (aktualnySet) {
             case 1:
@@ -598,7 +678,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
 
         if (setyHrac1 == pocetVitaznychSetov || setyHrac2 == pocetVitaznychSetov) {
             casovac.stop();
-            
+
             if (setyHrac1 > setyHrac2) {
                 hrac1.setPocetVyhier(hrac1.getPocetVyhier() + 1);
                 hrac2.setPocetPrehier(hrac2.getPocetPrehier() + 1);
@@ -606,7 +686,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 hrac2.setPocetVyhier(hrac2.getPocetVyhier() + 1);
                 hrac1.setPocetPrehier(hrac1.getPocetPrehier() + 1);
             }
-            
+
             Zapas zapas = new Zapas();
             zapas.setHrac1(hrac1);
             zapas.setHrac2(hrac2);
@@ -626,14 +706,15 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
             /*!!!!!!!*/ zapas.setUspesnostPodaniaHrac1(0);
             /*!!!!!!!*/ zapas.setUspesnostPodaniaHrac2(0);
             zapas.setTyp(typ);
-            
+
             if (this.typ.equals("Finále")) {
-                if (setyHrac1 > setyHrac2)
+                if (setyHrac1 > setyHrac2) {
                     turnaj.setVitaz(hrac1);
-                else
+                } else {
                     turnaj.setVitaz(hrac2);
+                }
             }
-                        
+
             KoniecZapasuForm koniecZapasuForm = new KoniecZapasuForm(this, true, zapas);
             koniecZapasuForm.setVisible(true);
         }

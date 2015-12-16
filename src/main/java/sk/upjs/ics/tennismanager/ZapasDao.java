@@ -6,4 +6,6 @@ public interface ZapasDao {
     public List<Zapas> dajPodlaTurnaja(int id);
     
     public void pridaj(Zapas zapas);
+    
+    public int dajPocetZapasov();
 }

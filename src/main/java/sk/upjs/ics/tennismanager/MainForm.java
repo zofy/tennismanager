@@ -235,6 +235,7 @@ public class MainForm extends javax.swing.JFrame {
         hracForm.setVisible(true);
 
         refreshHraci();
+        refreshTurnaje();
     }//GEN-LAST:event_upravitHracaButtonActionPerformed
 
     private void pridatHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatHracaButtonActionPerformed

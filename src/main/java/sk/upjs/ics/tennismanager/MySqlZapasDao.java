@@ -33,4 +33,11 @@ public class MySqlZapasDao implements ZapasDao {
                 zapas.getOkoHrac2(), zapas.getUspesnostPodaniaHrac1(), zapas.getUspesnostPodaniaHrac2(),
                 zapas.getTyp(), zapas.getSety());
     }
+    
+    @Override
+    public int dajPocetZapasov() {
+        String sql = "SELECT COUNT(*) FROM zapas";
+        
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
 }

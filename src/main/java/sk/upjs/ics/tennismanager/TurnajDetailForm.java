@@ -33,11 +33,12 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         rokLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         vitazLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         zapasyList = new javax.swing.JList();
         zrusitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(395, 380));
 
         nazovLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         nazovLabel.setText("....");
@@ -50,7 +51,12 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         vitazLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         vitazLabel.setText("....");
 
-        jScrollPane1.setViewportView(zapasyList);
+        zapasyList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                zapasyListMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(zapasyList);
 
         zrusitButton.setText("Zrušiť");
         zrusitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -64,23 +70,18 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(184, 184, 184)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rokLabel)
-                                    .addComponent(nazovLabel)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(vitazLabel)))
-                        .addGap(0, 181, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
+                                .addComponent(vitazLabel))
+                            .addComponent(nazovLabel)
+                            .addComponent(rokLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(zrusitButton)))
@@ -89,16 +90,16 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(nazovLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rokLabel)
-                .addGap(35, 35, 35)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(vitazLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(zrusitButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -110,6 +111,15 @@ public class TurnajDetailForm extends javax.swing.JDialog {
     private void zrusitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zrusitButtonActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_zrusitButtonActionPerformed
+
+    private void zapasyListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zapasyListMouseClicked
+        if (evt.getClickCount() == 2) {
+            Zapas vybranyZapas = (Zapas) zapasyList.getSelectedValue();
+
+            ZapasDetailForm zapasDetailForm = new ZapasDetailForm(this, true, vybranyZapas);
+            zapasDetailForm.setVisible(true);
+        }
+    }//GEN-LAST:event_zapasyListMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -152,7 +162,7 @@ public class TurnajDetailForm extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel nazovLabel;
     private javax.swing.JLabel rokLabel;
     private javax.swing.JLabel vitazLabel;

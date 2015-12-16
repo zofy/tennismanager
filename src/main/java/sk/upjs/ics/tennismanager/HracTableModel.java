@@ -40,7 +40,7 @@ public class HracTableModel extends AbstractTableModel {
         }
     }
     
-    @Override
+     @Override
     public String getColumnName(int column) {
         return NAZVY_STLPCOV[column];
     }

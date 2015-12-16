@@ -43,7 +43,12 @@ public class MySqlTurnajDao implements TurnajDao {
                 + " rok = ?,"
                 + " vitaz = ?"
                 + " WHERE id = ?;";
-        jdbcTemplate.update(sql, turnaj.getNazov(), turnaj.getRok(), turnaj.getVitaz().getId(), turnaj.getId());
+        Integer idVitaza;
+        if(turnaj.getVitaz() == null)
+            idVitaza = null;
+        else
+            idVitaza = turnaj.getVitaz().getId();
+        jdbcTemplate.update(sql, turnaj.getNazov(), turnaj.getRok(), idVitaza, turnaj.getId());
     }
 
     @Override
