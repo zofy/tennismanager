@@ -1,19 +1,12 @@
 package sk.upjs.ics.tennismanager;
 
-import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.BoxLayout;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.Timer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 public class PriebehZapasuForm extends javax.swing.JFrame {
 
@@ -662,6 +655,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 break;
         }
 
+        //testovanie ci uz niekto nevyhral set + dvojbodovy rozdiel na gemy
         if (gemyHrac1 >= 6 && gemyHrac2 <= gemyHrac1 - 2) {
             gemyHrac1 = 0;
             gemyHrac2 = 0;
@@ -676,6 +670,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
 
         stavGemyLabel.setText(gemyHrac1 + " - " + gemyHrac2);
 
+        //testovanie ci uz niekto nevyhral
         if (setyHrac1 == pocetVitaznychSetov || setyHrac2 == pocetVitaznychSetov) {
             casovac.stop();
 

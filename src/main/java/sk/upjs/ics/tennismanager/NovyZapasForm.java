@@ -1,5 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -49,6 +50,9 @@ public class NovyZapasForm extends javax.swing.JDialog {
 //                }
 //            }
 //        });
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")
@@ -68,6 +72,7 @@ public class NovyZapasForm extends javax.swing.JDialog {
         zacatButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nový zápas");
 
         sety3RadioButton.setText("3");
 

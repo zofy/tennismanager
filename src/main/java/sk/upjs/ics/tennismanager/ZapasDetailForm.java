@@ -1,5 +1,7 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
+
 public class ZapasDetailForm extends javax.swing.JDialog {
     private Zapas zapas;
     
@@ -28,6 +30,9 @@ public class ZapasDetailForm extends javax.swing.JDialog {
         najrychlejsiePodanieLabel.setText(zapas.getNajrychlejsiePodanie() + "km/h  ("
                 + zapas.getNajrychlejsiePodanieHrac().getMeno() + " " 
                 + zapas.getNajrychlejsiePodanieHrac().getPriezvisko() + ")");
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")
@@ -59,6 +64,7 @@ public class ZapasDetailForm extends javax.swing.JDialog {
         stavLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Detail zápasu");
 
         hrac1Label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         hrac1Label.setText(".....");

@@ -1,5 +1,7 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
+
 public class StatistikyDialogForm extends javax.swing.JDialog {
 
     public StatistikyDialogForm(java.awt.Frame parent, boolean modal) {
@@ -30,6 +32,9 @@ public class StatistikyDialogForm extends javax.swing.JDialog {
         
         this.setLocationRelativeTo(parent);
         this.setLocationByPlatform(true);
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")

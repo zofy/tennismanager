@@ -1,5 +1,7 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
+
 public class TurnajDetailForm extends javax.swing.JDialog {
     private Turnaj turnaj;
     private ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
@@ -23,6 +25,9 @@ public class TurnajDetailForm extends javax.swing.JDialog {
             vitazLabel.setText(vitaz.getMeno() + " " + vitaz.getPriezvisko());
         
         zapasyList.setListData(zapasDao.dajPodlaTurnaja(turnaj.getId()).toArray());
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,6 +43,7 @@ public class TurnajDetailForm extends javax.swing.JDialog {
         zrusitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Detail turnaja");
         setPreferredSize(new java.awt.Dimension(395, 380));
 
         nazovLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N

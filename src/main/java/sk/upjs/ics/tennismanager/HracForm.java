@@ -1,5 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
 import javax.swing.ButtonGroup;
 
 public class HracForm extends javax.swing.JDialog {
@@ -26,6 +27,9 @@ public class HracForm extends javax.swing.JDialog {
             else
                 zenaRadioButton.setSelected(true);
         }
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")

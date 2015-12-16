@@ -1,5 +1,7 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
+
 public class TurnajForm extends javax.swing.JDialog {
 
     private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
@@ -19,6 +21,8 @@ public class TurnajForm extends javax.swing.JDialog {
             rokText.setText(Integer.valueOf(turnaj.getRok()).toString());
         }
 
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,6 +37,7 @@ public class TurnajForm extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pridať turnaj");
 
         zrusitButton.setText("Zrušiť");
         zrusitButton.addActionListener(new java.awt.event.ActionListener() {

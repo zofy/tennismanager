@@ -1,5 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -17,6 +18,9 @@ public class MainForm extends javax.swing.JFrame {
         refreshTurnaje();
         
         zarovnajCislaVTabulkach();
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,6 +44,8 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tennis manager");
+
+        hraciTab.setBackground(new java.awt.Color(204, 255, 204));
 
         pridatHracaButton.setText("Pridať...");
         pridatHracaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +108,8 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         tabbedPane.addTab("Hráči", hraciTab);
+
+        turnajeTab.setBackground(new java.awt.Color(204, 255, 204));
 
         odstranitTurnajButton.setText("Odstrániť");
         odstranitTurnajButton.addActionListener(new java.awt.event.ActionListener() {

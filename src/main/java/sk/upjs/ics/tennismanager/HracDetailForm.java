@@ -1,5 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
 import java.util.List;
 
 public class HracDetailForm extends javax.swing.JDialog {
@@ -18,6 +19,9 @@ public class HracDetailForm extends javax.swing.JDialog {
         
         nastavLabely();
         nastavVyhrateTurnaje();
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")
@@ -46,6 +50,7 @@ public class HracDetailForm extends javax.swing.JDialog {
         vyhrateTurnajeList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Detail hráča");
 
         jLabel1.setText("Meno:");
 

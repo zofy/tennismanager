@@ -1,5 +1,7 @@
 package sk.upjs.ics.tennismanager;
 
+import java.awt.Color;
+
 public class KoniecZapasuForm extends javax.swing.JDialog {
     private Zapas zapas;
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
@@ -26,6 +28,9 @@ public class KoniecZapasuForm extends javax.swing.JDialog {
             vitazLabel.setText(hrac2.getMeno() + " " + hrac2.getPriezvisko());
         }
         priebehLabel.setText(zapas.getSety());
+        
+        Color color = new Color(204, 255, 204);
+        this.getContentPane().setBackground(color);
     }
 
     @SuppressWarnings("unchecked")
