@@ -6,6 +6,7 @@ import java.util.List;
 public class HracDetailForm extends javax.swing.JDialog {
     private Hrac hrac;
     private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
+    private ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
     
     public HracDetailForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -48,6 +49,8 @@ public class HracDetailForm extends javax.swing.JDialog {
         uspesnostNaVyhruLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         vyhrateTurnajeList = new javax.swing.JList();
+        jLabel8 = new javax.swing.JLabel();
+        pocetZapasovZaRokLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detail hráča");
@@ -103,6 +106,11 @@ public class HracDetailForm extends javax.swing.JDialog {
 
         jScrollPane2.setViewportView(vyhrateTurnajeList);
 
+        jLabel8.setText("Počet zápasov za rok:");
+
+        pocetZapasovZaRokLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        pocetZapasovZaRokLabel.setText(".....");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,7 +159,11 @@ public class HracDetailForm extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(najrychlejsiePodanieLabel))))
+                                        .addComponent(najrychlejsiePodanieLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(pocetZapasovZaRokLabel))))
                             .addComponent(jLabel9))
                         .addGap(0, 77, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -184,13 +196,17 @@ public class HracDetailForm extends javax.swing.JDialog {
                     .addComponent(krajinaLabel)
                     .addComponent(jLabel7)
                     .addComponent(najrychlejsiePodanieLabel))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(pocetZapasovZaRokLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(zrusitButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -210,6 +226,7 @@ public class HracDetailForm extends javax.swing.JDialog {
             uspesnostNaVyhruLabel.setText(String.valueOf((int) uspesnost) + " %");
         }
         najrychlejsiePodanieLabel.setText(String.valueOf(hrac.getNajrychlejsiePodanie()) + " km/h");
+        pocetZapasovZaRokLabel.setText(String.valueOf(zapasDao.dajPocetZapasovZaRokPodlaHraca(hrac.getId())));
     }
     
     private void nastavVyhrateTurnaje() {
@@ -269,6 +286,7 @@ public class HracDetailForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel krajinaLabel;
@@ -276,6 +294,7 @@ public class HracDetailForm extends javax.swing.JDialog {
     private javax.swing.JLabel najrychlejsiePodanieLabel;
     private javax.swing.JLabel pocetPrehierLabel;
     private javax.swing.JLabel pocetVyhierLabel;
+    private javax.swing.JLabel pocetZapasovZaRokLabel;
     private javax.swing.JLabel pohlavieLabel;
     private javax.swing.JLabel priezviskoLabel;
     private javax.swing.JLabel uspesnostNaVyhruLabel;

@@ -10,14 +10,14 @@ public class MySqlZapasDaoTest {
     private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
     
     @Test
-    public void dajPocetZapasovTest() {
-        int pocetZapasov = zapasDao.dajPocetZapasov();
+    public void dajPocetVsetkychZapasovTest() {
+        int pocetZapasov = zapasDao.dajPocetVsetkychZapasov();
         Assert.assertEquals(12, pocetZapasov);
     }
     
     @Test
     public void pridatTest() {
-        int staryPocetZapasov = zapasDao.dajPocetZapasov();
+        int staryPocetZapasov = zapasDao.dajPocetVsetkychZapasov();
         
         Hrac hrac1 = hracDao.dajVsetky().get(0);
         Hrac hrac2 = hracDao.dajVsetky().get(1);
@@ -35,7 +35,7 @@ public class MySqlZapasDaoTest {
         zapas.setNajrychlejsiePodanieHrac(hrac2);
         zapasDao.pridaj(zapas);
         
-        int novyPocetZapasov = zapasDao.dajPocetZapasov();
+        int novyPocetZapasov = zapasDao.dajPocetVsetkychZapasov();
         
         Assert.assertEquals(staryPocetZapasov + 1, novyPocetZapasov);
     }
@@ -47,5 +47,12 @@ public class MySqlZapasDaoTest {
         List<Zapas> zapasy = zapasDao.dajPodlaTurnaja(idPrveho);
         
         Assert.assertEquals(3, zapasy.size());
+    }
+    
+    @Test
+    public void dajPocetZapasovZaRokPodlaHracaTest() {
+        int pocetZapasovZaRok = zapasDao.dajPocetZapasovZaRokPodlaHraca(7);
+        
+        Assert.assertEquals(4, pocetZapasovZaRok);
     }
 }

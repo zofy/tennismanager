@@ -1,7 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
 import java.util.List;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MySqlZapasDao implements ZapasDao {
@@ -35,9 +34,18 @@ public class MySqlZapasDao implements ZapasDao {
     }
     
     @Override
-    public int dajPocetZapasov() {
+    public int dajPocetVsetkychZapasov() {
         String sql = "SELECT COUNT(*) FROM zapas";
         
         return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+    
+    @Override
+    public int dajPocetZapasovZaRokPodlaHraca(int hrac) {
+        String sql = "SELECT COUNT(*) FROM zapas JOIN hrac h1 ON hrac1 = h1.id"
+                + " JOIN hrac h2 ON hrac2 = h2.id JOIN turnaj t ON turnaj = t.id"
+                + " WHERE (t.rok = YEAR(CURDATE())) AND (h1.id = ? OR h2.id = ?)";
+        
+        return jdbcTemplate.queryForObject(sql, Integer.class, hrac, hrac);
     }
 }

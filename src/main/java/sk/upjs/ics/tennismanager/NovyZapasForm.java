@@ -1,10 +1,6 @@
 package sk.upjs.ics.tennismanager;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import javax.swing.ButtonGroup;
 
 public class NovyZapasForm extends javax.swing.JDialog {

@@ -7,5 +7,7 @@ public interface ZapasDao {
     
     public void pridaj(Zapas zapas);
     
-    public int dajPocetZapasov();
+    public int dajPocetVsetkychZapasov();
+    
+    public int dajPocetZapasovZaRokPodlaHraca(int hrac);
 }
