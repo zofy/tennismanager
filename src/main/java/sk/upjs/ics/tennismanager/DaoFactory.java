@@ -10,8 +10,16 @@ public enum DaoFactory {
     private HracDao hracDao;
     private ZapasDao zapasDao;
     private TurnajDao turnajDao;
+    private UzivatelDaO uzivatelDao;
     private JdbcTemplate jdbcTemplate;
     private MysqlDataSource dataSource;
+
+    public UzivatelDaO getUzivatelDaO() {
+        if (this.uzivatelDao == null) {
+            this.uzivatelDao = new MysqlUzivatelDaO(getJdbcTemplate());
+        }
+        return this.uzivatelDao;
+    }
 
     public HracDao getHracDao() {
         if (this.hracDao == null) {
@@ -40,7 +48,7 @@ public enum DaoFactory {
         }
         return this.jdbcTemplate;
     }
-    
+
     public MysqlDataSource getDataSource() {
         if (this.dataSource == null) {
             MysqlDataSource dataSource = new MysqlDataSource();

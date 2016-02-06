@@ -5,44 +5,45 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MySqlHracDao implements HracDao {
+
     private JdbcTemplate jdbcTemplate;
-    
+
     public MySqlHracDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    
+
     @Override
     public List<Hrac> dajVsetky() {
         String sql = "SELECT * FROM hrac";
         BeanPropertyRowMapper<Hrac> mapper = BeanPropertyRowMapper.newInstance(Hrac.class);
-        
+
         return jdbcTemplate.query(sql, mapper);
     }
-    
+
     @Override
     public List<Hrac> dajVsetkyOkrem(int id) {
         String sql = "SELECT * FROM hrac WHERE id <> ?";
         BeanPropertyRowMapper<Hrac> mapper = BeanPropertyRowMapper.newInstance(Hrac.class);
-        
-        return jdbcTemplate.query(sql, mapper, id);     
+
+        return jdbcTemplate.query(sql, mapper, id);
     }
-    
+
     @Override
     public List<Hrac> dajPodlaId(int id) {
         String sql = "SELECT * FROM hrac WHERE id = ?";
         BeanPropertyRowMapper<Hrac> mapper = BeanPropertyRowMapper.newInstance(Hrac.class);
-        
+
         return jdbcTemplate.query(sql, mapper, id);
     }
 
     @Override
     public void pridat(Hrac hrac) {
         String sql = "INSERT INTO hrac VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         jdbcTemplate.update(sql, null, hrac.getMeno(), hrac.getPriezvisko(),
                 hrac.getPohlavie(), hrac.getKrajina(), 0, 0, 0);
     }
-    
+
     @Override
     public void upravit(Hrac hrac) {
         String sql = "UPDATE hrac SET"
@@ -58,11 +59,11 @@ public class MySqlHracDao implements HracDao {
                 hrac.getKrajina(), hrac.getPohlavie(), hrac.getPocetVyhier(),
                 hrac.getPocetPrehier(), hrac.getNajrychlejsiePodanie(), hrac.getId());
     }
-    
+
     @Override
     public void odstranit(Hrac hrac) {
         String sql = "DELETE FROM hrac WHERE id = ?";
-        
+
         jdbcTemplate.update(sql, hrac.getId());
     }
 }
