@@ -21,11 +21,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class RegistrujForm extends javax.swing.JFrame {
-    
+
     private JTextField menoTextField = new JTextField();
     private JPasswordField hesloField = new JPasswordField();
     private JPasswordField heslo2Field = new JPasswordField();
@@ -34,38 +35,41 @@ public class RegistrujForm extends javax.swing.JFrame {
     private JButton registerButton = new JButton("Registruj");
     private JLabel obrazokLabel = new JLabel();
     private UzivatelDaO uzivatel = DaoFactory.INSTANCE.getUzivatelDaO();
-    
+
     public RegistrujForm() {
         initComponents();
     }
-    
+
     public RegistrujForm(String meno, String heslo) {
         initComponents();
+        JPanel content = new JPanel();
+        content.setBackground(Color.decode("#D7FFB8"));
+        this.setContentPane(content);
         this.setTitle("Ragistrácia užívateľa");
-        this.setBackground(Color.decode("#D7FFB8"));
         menoTextField.setText(meno);
         hesloField.setText(heslo);
-        siRozhodcaBox.setSelected(true);
-        
+        siRozhodcaBox.setSelected(false);
+        kodLicencieField.setEnabled(false);
+
         BufferedImage logInObrazok1 = null;
-        
+
         try {
-            logInObrazok1 = ImageIO.read(new File("C:\\naMenu\\person.png"));
-            
+            logInObrazok1 = ImageIO.read(new File("C:\\naMenu\\racket4.png"));
+
         } catch (IOException ex) {
             System.err.println("Neni obrazok!");
         }
         Image scaledObrazok1 = logInObrazok1.getScaledInstance(80,
                 75, Image.SCALE_SMOOTH);
-        
+
         obrazokLabel.setIcon(new ImageIcon(scaledObrazok1));
-        
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         int height = dim.height;
         int width = dim.width;
         this.setLocation((-this.getSize().width + width) / 2, (-this.getSize().height + height) / 2);
         dim = new Dimension(100, 25);
-        
+
         menoTextField.setMinimumSize(dim);
         menoTextField.setMaximumSize(dim);
         menoTextField.setPreferredSize(dim);
@@ -74,68 +78,68 @@ public class RegistrujForm extends javax.swing.JFrame {
         heslo2Field.setMaximumSize(dim);
         heslo2Field.setPreferredSize(dim);
         kodLicencieField.setPreferredSize(dim);
-        
+
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(3, 3, 3, 3);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         add(obrazokLabel, gbc);
-        
+
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 1;
         JLabel menoLabel = new JLabel("Meno:");
         add(menoLabel, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 2;
         JLabel hesloLabel = new JLabel("Heslo:");
         add(hesloLabel, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 3;
         JLabel heslo2Label = new JLabel("Zopakuj heslo:");
         add(heslo2Label, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 4;
         JLabel siRozhodcaLabel = new JLabel("Rozhodca:");
         add(siRozhodcaLabel, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 5;
         JLabel kodLabel = new JLabel("Kód licencie:");
         add(kodLabel, gbc);
-        
+
         gbc.gridx = 1;
         gbc.gridy = 1;
         add(menoTextField, gbc);
-        
+
         gbc.gridx = 1;
         gbc.gridy = 2;
         add(hesloField, gbc);
-        
+
         gbc.gridx = 1;
         gbc.gridy = 3;
         add(heslo2Field, gbc);
-        
+
         gbc.gridx = 1;
         gbc.gridy = 4;
         add(siRozhodcaBox, gbc);
-        
+
         gbc.gridx = 1;
         gbc.gridy = 5;
         add(kodLicencieField, gbc);
-        
+
         gbc.gridx = 1;
         gbc.gridy = 6;
         add(registerButton, gbc);
-        
+
         siRozhodcaBox.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (siRozhodcaBox.isSelected()) {
@@ -144,10 +148,10 @@ public class RegistrujForm extends javax.swing.JFrame {
                     kodLicencieField.setEnabled(false);
                 }
             }
-            
+
         });
         registerButton.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 Uzivatel u = new Uzivatel();
@@ -171,26 +175,36 @@ public class RegistrujForm extends javax.swing.JFrame {
                 } else {
                     u.setHeslo(heslo.trim());
                 }
+                u.setSiRozhodca(siRozhodcaBox.isSelected());
+                if (siRozhodcaBox.isSelected()) {
+                    String licencnyKod = kodLicencieField.getText().trim();
+                    if (!licencnyKod.isEmpty() && uzivatel.overLicencnyKod(licencnyKod)) {
+                        u.setLicencnyKod(licencnyKod);
+                    } else {
+                        JOptionPane.showMessageDialog(RegistrujForm.this, "Nesprávny licenčný kód!", "Chyba", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
                 uzivatel.vlozUzivatela(u);
                 RegistrujForm.this.dispose();
                 //new UzivatelMenu(uzivatel.getUserId(meno)).setVisible(true);
             }
-            
+
         });
-        
+
         dim = new Dimension(320, 320);
         this.setPreferredSize(dim);
         this.pack();
-        
+
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
-            
+
             @Override
             public void windowClosing(WindowEvent e) {
                 RegistrujForm.this.dispose();
                 new LoginForm().setVisible(true);
             }
-            
+
         });
     }
 

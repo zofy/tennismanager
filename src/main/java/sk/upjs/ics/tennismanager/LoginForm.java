@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -103,11 +104,12 @@ public class LoginForm extends javax.swing.JFrame implements MouseListener {
             } catch (IOException ex) {
                 System.err.println("Neni obrazok!");
             }
-            Image scaledObrazok = logInObrazok.getScaledInstance(250,
+            Image scaledObrazok = logInObrazok.getScaledInstance(230,
                     220, Image.SCALE_SMOOTH);
             ImageIcon img = new ImageIcon(scaledObrazok);
 
             GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(3, 3, 3, 3);
             gbc.gridx = 0;
             gbc.gridy = 0;
             gbc.gridwidth = 5;
@@ -119,7 +121,7 @@ public class LoginForm extends javax.swing.JFrame implements MouseListener {
 
             gbc.gridx = 0;
             gbc.gridy = 1;
-            gbc.ipadx = 30;
+            gbc.ipadx = 20;
             gbc.ipady = 15;
             l = new JLabel();
             add(l, gbc);
@@ -153,6 +155,7 @@ public class LoginForm extends javax.swing.JFrame implements MouseListener {
 
             gbc.gridx = 3;
             gbc.anchor = GridBagConstraints.WEST;
+            gbc.insets = new Insets(3, 0, 3, 3);
             add(registerButton, gbc);
 
             gbc.gridy++;
