@@ -5,11 +5,12 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class HracTableModel extends AbstractTableModel {
-    private static final int POCET_STLPCOV = 4;
+
+    private static final int POCET_STLPCOV = 5;
     private static final String[] NAZVY_STLPCOV = {"Meno", "Priezvisko",
-            "Počet výhier", "Počet prehier"};
+        "Počet výhier", "Počet prehier", "Úspešnosť [%]"};
     private static final Class[] TYPY_STLPCOV = {String.class, String.class,
-            Integer.class, Integer.class};
+        Integer.class, Integer.class, Double.class};
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
     private List<Hrac> hraci = new LinkedList<>();
 
@@ -35,12 +36,14 @@ public class HracTableModel extends AbstractTableModel {
                 return vybranyHrac.getPocetVyhier();
             case 3:
                 return vybranyHrac.getPocetPrehier();
+            case 4:
+                return vybranyHrac.getUspesnost();
             default:
                 return "???";
         }
     }
-    
-     @Override
+
+    @Override
     public String getColumnName(int column) {
         return NAZVY_STLPCOV[column];
     }
@@ -49,12 +52,12 @@ public class HracTableModel extends AbstractTableModel {
     public Class<?> getColumnClass(int columnIndex) {
         return TYPY_STLPCOV[columnIndex];
     }
-    
+
     public void refresh() {
         hraci = hracDao.dajVsetky();
         fireTableDataChanged();
     }
-    
+
     public Hrac dajPodlaCislaRiadku(int riadok) {
         return hraci.get(riadok);
     }

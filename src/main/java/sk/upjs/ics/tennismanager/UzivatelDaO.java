@@ -6,7 +6,7 @@ public interface UzivatelDaO {
 
     public void vlozUzivatela(Uzivatel u);
 
-    public Long getUserId(String meno);
+    public Uzivatel getUser(String meno);
 
     public List<Uzivatel> dajVsetkych();
 

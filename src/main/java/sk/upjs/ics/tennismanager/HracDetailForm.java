@@ -4,23 +4,24 @@ import java.awt.Color;
 import java.util.List;
 
 public class HracDetailForm extends javax.swing.JDialog {
+
     private Hrac hrac;
     private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
     private ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
-    
+
     public HracDetailForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
+
     public HracDetailForm(java.awt.Frame parent, boolean modal, Hrac hrac) {
         super(parent, modal);
         initComponents();
         this.hrac = hrac;
-        
+
         nastavLabely();
         nastavVyhrateTurnaje();
-        
+
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
     }
@@ -219,21 +220,21 @@ public class HracDetailForm extends javax.swing.JDialog {
         krajinaLabel.setText(hrac.getKrajina());
         pocetVyhierLabel.setText(String.valueOf(hrac.getPocetVyhier()));
         pocetPrehierLabel.setText(String.valueOf(hrac.getPocetPrehier()));
-        if (hrac.getPocetVyhier()+hrac.getPocetPrehier() == 0) {
+        if (hrac.getPocetVyhier() + hrac.getPocetPrehier() == 0) {
             uspesnostNaVyhruLabel.setText("0 %");
         } else {
-            double uspesnost = (hrac.getPocetVyhier()*1.0)/(hrac.getPocetPrehier()+hrac.getPocetVyhier())*100;
-            uspesnostNaVyhruLabel.setText(String.valueOf((int) uspesnost) + " %");
+            double uspesnost = (hrac.getPocetVyhier() * 1.0) / (hrac.getPocetPrehier() + hrac.getPocetVyhier()) * 100;
+            uspesnostNaVyhruLabel.setText(String.valueOf((double) uspesnost) + " %");
         }
         najrychlejsiePodanieLabel.setText(String.valueOf(hrac.getNajrychlejsiePodanie()) + " km/h");
         pocetZapasovZaRokLabel.setText(String.valueOf(zapasDao.dajPocetZapasovZaRokPodlaHraca(hrac.getId())));
     }
-    
+
     private void nastavVyhrateTurnaje() {
         List<Turnaj> turnaje = turnajDao.dajPodlaVitaza(hrac.getId());
         vyhrateTurnajeList.setListData(turnaje.toArray());
     }
-    
+
     private void zrusitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zrusitButtonActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_zrusitButtonActionPerformed

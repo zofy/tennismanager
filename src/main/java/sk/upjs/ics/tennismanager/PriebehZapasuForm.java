@@ -107,7 +107,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 int hodnotaHrac1 = 0;
                 int hodnotaHrac2 = 0;
                 String nazovOkna;
-                
+
                 switch (statistikyComboBox.getSelectedIndex()) {
                     case 0: //Esá
                         hodnotaHrac1 = esaHrac1;
@@ -681,6 +681,9 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 hrac2.setPocetVyhier(hrac2.getPocetVyhier() + 1);
                 hrac1.setPocetPrehier(hrac1.getPocetPrehier() + 1);
             }
+
+            hrac1.setUspesnost((hrac1.getPocetVyhier() / (hrac1.getPocetVyhier() + hrac1.getPocetPrehier())) * 100);
+            hrac2.setUspesnost((hrac2.getPocetVyhier() / (hrac2.getPocetVyhier() + hrac2.getPocetPrehier())) * 100);
 
             Zapas zapas = new Zapas();
             zapas.setHrac1(hrac1);

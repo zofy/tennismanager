@@ -22,15 +22,14 @@ public class MysqlUzivatelDaO implements UzivatelDaO {
     }
     
     @Override
-    public Long getUserId(String meno) {
-        Long idU = null;
-        List<Uzivatel> uzivatel = tmp.query("select * from uzivatel where meno = ?", new Object[]{meno}, new UzivatelMapper());
+    public Uzivatel getUser(String meno) {
+        List<Uzivatel> uzivatel = tmp.query("select * from uzivatel where meno = ?", new UzivatelMapper(), meno);
         for (Uzivatel u : uzivatel) {
             if (u.getMeno().equals(meno)) {
-                idU = u.getId();
+                return u;
             }
         }
-        return idU;
+        return null;
     }
     
     @Override
@@ -69,12 +68,10 @@ public class MysqlUzivatelDaO implements UzivatelDaO {
     public boolean overLicencnyKod(String kod) {
         List<String> licencia = tmp.query("select kod from licencie where kod=?", new LicenciaMapper(), kod);
         for (String kodik : licencia) {
-            System.out.println(kodik);
             if (kodik.equals(kod)) {
                 return true;
             }
         }
-        System.out.println(licencia.toString());
         return false;
     }
     

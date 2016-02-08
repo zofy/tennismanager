@@ -6,9 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class MainForm extends javax.swing.JFrame {
+
     HracTableModel hracTableModel = new HracTableModel();
     HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
-    
+
     TurnajTableModel turnajTableModel = new TurnajTableModel();
     TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
 
@@ -16,9 +17,9 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         refreshHraci();
         refreshTurnaje();
-        
+
         zarovnajCislaVTabulkach();
-        
+
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
     }
@@ -84,22 +85,22 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(hraciTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(hraciTabLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
                     .addGroup(hraciTabLayout.createSequentialGroup()
                         .addComponent(pridatHracaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(upravitHracaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(odstranitHracaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 239, Short.MAX_VALUE))))
         );
         hraciTabLayout.setVerticalGroup(
             hraciTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hraciTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(hraciTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pridatHracaButton)
                     .addComponent(upravitHracaButton)
@@ -205,7 +206,7 @@ public class MainForm extends javax.swing.JFrame {
     private void pridatTurnajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatTurnajButtonActionPerformed
         TurnajForm pridatTurnajForm = new TurnajForm(this, true, null);
         pridatTurnajForm.setVisible(true);
-        
+
         refreshTurnaje();
     }//GEN-LAST:event_pridatTurnajButtonActionPerformed
 
@@ -222,13 +223,13 @@ public class MainForm extends javax.swing.JFrame {
     private void odstranitHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odstranitHracaButtonActionPerformed
         int vybranyRiadok = hracTable.getSelectedRow();
         Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
-        
+
         List<Turnaj> turnaje = turnajDao.dajPodlaVitaza(hrac.getId());
         for (Turnaj turnaj : turnaje) {
             turnaj.setVitaz(null);
             turnajDao.upravit(turnaj);
         }
-        
+
         hracDao.odstranit(hrac);
 
         refreshHraci();
@@ -275,7 +276,7 @@ public class MainForm extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             int vybranyRiadok = turnajTable.getSelectedRow();
             Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
-            
+
             TurnajDetailForm turnajDetailForm = new TurnajDetailForm(this, true, turnaj);
             turnajDetailForm.setVisible(true);
         }
@@ -284,7 +285,7 @@ public class MainForm extends javax.swing.JFrame {
     private void novyZapasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novyZapasButtonActionPerformed
         int vybranyRiadok = turnajTable.getSelectedRow();
         Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
-        
+
         NovyZapasForm novyTurnajForm = new NovyZapasForm(this, true, turnaj);
         novyTurnajForm.setVisible(true);
     }//GEN-LAST:event_novyZapasButtonActionPerformed
@@ -292,7 +293,7 @@ public class MainForm extends javax.swing.JFrame {
     private void refreshHraci() {
         hracTableModel.refresh();
     }
-    
+
     private void refreshTurnaje() {
         turnajTableModel.refresh();
     }
@@ -301,7 +302,8 @@ public class MainForm extends javax.swing.JFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         hracTable.setDefaultRenderer(Integer.class, centerRenderer);
-        
+        hracTable.setDefaultRenderer(Double.class, centerRenderer);
+
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(JLabel.LEFT);
         turnajTable.setDefaultRenderer(Integer.class, leftRenderer);

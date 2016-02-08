@@ -1,6 +1,7 @@
 package sk.upjs.ics.tennismanager;
 
 public class Hrac {
+
     private int id;
     private String meno;
     private String priezvisko;
@@ -8,7 +9,16 @@ public class Hrac {
     private String krajina;
     private int pocetVyhier;
     private int pocetPrehier;
+    private double uspesnost;
     private int najrychlejsiePodanie;
+
+    public double getUspesnost() {
+        return uspesnost;
+    }
+
+    public void setUspesnost(double uspesnost) {
+        this.uspesnost = uspesnost;
+    }
 
     public int getId() {
         return id;
