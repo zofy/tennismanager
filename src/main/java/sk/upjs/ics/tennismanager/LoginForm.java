@@ -65,9 +65,8 @@ public class LoginForm extends javax.swing.JFrame implements MouseListener {
                 if (uzivatel.getUser(meno).isSiRozhodca()) {
                     new MainForm().setVisible(true);
                 } else {
-                    // tu pride pre uzivatela
+                    new UzivatelMainForm().setVisible(true);
                 }
-                //  new UzivatelMenu(uzivatel.getUserId(menoTextField.getText())).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Nesprávne meno alebo heslo!", "Chyba", JOptionPane.ERROR_MESSAGE);
             }
