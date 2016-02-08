@@ -2,6 +2,8 @@ package sk.upjs.ics.tennismanager;
 
 import java.awt.Color;
 import static java.awt.Component.CENTER_ALIGNMENT;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JLabel;
@@ -9,36 +11,43 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class UzivatelMainForm extends javax.swing.JFrame {
-    
+
     HracTableModel hracTableModel = new HracTableModel();
     HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
-    
+
     TurnajTableModel turnajTableModel = new TurnajTableModel();
     TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
-    
+
     public UzivatelMainForm() {
         initComponents();
         refreshHraci();
         refreshTurnaje();
-        
+
         zarovnajCislaVTabulkach();
-        
+
         vsJlabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         this.naplnComboBox();
         AutoCompleteDecorator.decorate(this.hrac1ComboBox);
         AutoCompleteDecorator.decorate(this.hrac2ComboBox);
         this.getContentPane().setBackground(Color.decode("#D7FFB8"));
+        hraciTab.setBackground(Color.decode("#D7FFB8"));
+        turnajTab.setBackground(Color.decode("#D7FFB8"));
+        stavkovyPoradcaTab.setBackground(Color.decode("#D7FFB8"));
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2);
+
         addWindowListener(new WindowAdapter() {
-            
+
             @Override
             public void windowClosing(WindowEvent e) {
                 UzivatelMainForm.this.dispose();
                 new LoginForm().setVisible(true);
             }
-            
+
         });
     }
-    
+
     public void naplnComboBox() {
         for (Hrac h : hracDao.dajVsetky()) {
             hrac1ComboBox.addItem(h);
@@ -47,21 +56,21 @@ public class UzivatelMainForm extends javax.swing.JFrame {
         hrac1ComboBox.setSelectedItem(null);
         hrac2ComboBox.setSelectedItem(null);
     }
-    
+
     private void refreshHraci() {
         hracTableModel.refresh();
     }
-    
+
     private void refreshTurnaje() {
         turnajTableModel.refresh();
     }
-    
+
     private void zarovnajCislaVTabulkach() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         hracTable.setDefaultRenderer(Integer.class, centerRenderer);
         hracTable.setDefaultRenderer(Double.class, centerRenderer);
-        
+
         DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         leftRenderer.setHorizontalAlignment(JLabel.LEFT);
         turnajTable.setDefaultRenderer(Integer.class, leftRenderer);
@@ -77,9 +86,11 @@ public class UzivatelMainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        hraciTab = new javax.swing.JScrollPane();
+        hraciTab = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         hracTable = new javax.swing.JTable();
-        trunajeTab = new javax.swing.JScrollPane();
+        turnajTab = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         turnajTable = new javax.swing.JTable();
         stavkovyPoradcaTab = new javax.swing.JPanel();
         hrac1ComboBox = new javax.swing.JComboBox();
@@ -89,16 +100,62 @@ public class UzivatelMainForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         hracTable.setModel(hracTableModel);
-        hraciTab.setViewportView(hracTable);
+        hracTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hracTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(hracTable);
+
+        javax.swing.GroupLayout hraciTabLayout = new javax.swing.GroupLayout(hraciTab);
+        hraciTab.setLayout(hraciTabLayout);
+        hraciTabLayout.setHorizontalGroup(
+            hraciTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hraciTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        hraciTabLayout.setVerticalGroup(
+            hraciTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hraciTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         jTabbedPane1.addTab("Hráči", hraciTab);
 
         turnajTable.setModel(turnajTableModel);
-        trunajeTab.setViewportView(turnajTable);
+        turnajTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                turnajTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(turnajTable);
 
-        jTabbedPane1.addTab("Turnaje", trunajeTab);
+        javax.swing.GroupLayout turnajTabLayout = new javax.swing.GroupLayout(turnajTab);
+        turnajTab.setLayout(turnajTabLayout);
+        turnajTabLayout.setHorizontalGroup(
+            turnajTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(turnajTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        turnajTabLayout.setVerticalGroup(
+            turnajTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(turnajTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-        hrac1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
+        jTabbedPane1.addTab("Turnaje", turnajTab);
+
+        hrac1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        hrac2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         vsJlabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         vsJlabel.setText("VS");
@@ -108,26 +165,26 @@ public class UzivatelMainForm extends javax.swing.JFrame {
         stavkovyPoradcaTabLayout.setHorizontalGroup(
             stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(stavkovyPoradcaTabLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(25, 25, 25)
                 .addComponent(hrac1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(vsJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(vsJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addComponent(hrac2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(23, 23, 23))
         );
         stavkovyPoradcaTabLayout.setVerticalGroup(
             stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(stavkovyPoradcaTabLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(33, 33, 33)
                 .addGroup(stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hrac1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hrac2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vsJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(219, Short.MAX_VALUE))
+                    .addComponent(vsJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", stavkovyPoradcaTab);
+        jTabbedPane1.addTab("Stávkový poradca", stavkovyPoradcaTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,11 +194,33 @@ public class UzivatelMainForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void hracTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hracTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            int vybranyRiadok = hracTable.getSelectedRow();
+            Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+
+            HracDetailForm hracDetailForm = new HracDetailForm(this, true, hrac);
+            hracDetailForm.setVisible(true);
+        }
+    }//GEN-LAST:event_hracTableMouseClicked
+
+    private void turnajTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_turnajTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            int vybranyRiadok = turnajTable.getSelectedRow();
+            Turnaj turnaj = turnajTableModel.dajPodlaCislaRiadku(vybranyRiadok);
+
+            TurnajDetailForm turnajDetailForm = new TurnajDetailForm(this, true, turnaj);
+            turnajDetailForm.setVisible(true);
+        }
+    }//GEN-LAST:event_turnajTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -182,10 +261,12 @@ public class UzivatelMainForm extends javax.swing.JFrame {
     private javax.swing.JComboBox hrac1ComboBox;
     private javax.swing.JComboBox hrac2ComboBox;
     private javax.swing.JTable hracTable;
-    private javax.swing.JScrollPane hraciTab;
+    private javax.swing.JPanel hraciTab;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel stavkovyPoradcaTab;
-    private javax.swing.JScrollPane trunajeTab;
+    private javax.swing.JPanel turnajTab;
     private javax.swing.JTable turnajTable;
     private javax.swing.JLabel vsJlabel;
     // End of variables declaration//GEN-END:variables

@@ -22,22 +22,24 @@ public class ZapasRowCallbackHandler implements RowCallbackHandler {
         hrac1.setPocetVyhier(rs.getInt(23));
         hrac1.setPocetPrehier(rs.getInt(24));
         hrac1.setNajrychlejsiePodanie(rs.getInt(25));
+        hrac1.setUspesnost(rs.getDouble(26)); // tu som pridal
         
         Hrac hrac2 = new Hrac();
-        hrac2.setId(rs.getInt(26));
-        hrac2.setMeno(rs.getString(27));
-        hrac2.setPriezvisko(rs.getString(28));
-        hrac2.setPohlavie(rs.getString(29));
-        hrac2.setKrajina(rs.getString(30));
-        hrac2.setPocetVyhier(rs.getInt(31));
-        hrac2.setPocetPrehier(rs.getInt(32));
-        hrac2.setNajrychlejsiePodanie(rs.getInt(33));
+        hrac2.setId(rs.getInt(27));
+        hrac2.setMeno(rs.getString(28));
+        hrac2.setPriezvisko(rs.getString(29));
+        hrac2.setPohlavie(rs.getString(30));
+        hrac2.setKrajina(rs.getString(31));
+        hrac2.setPocetVyhier(rs.getInt(32));
+        hrac2.setPocetPrehier(rs.getInt(33));
+        hrac2.setNajrychlejsiePodanie(rs.getInt(34));
+        hrac2.setUspesnost(rs.getDouble(35));
         
         Turnaj turnaj = new Turnaj();
-        turnaj.setId(rs.getInt(34));
-        turnaj.setNazov(rs.getString(35));
-        turnaj.setRok(rs.getInt(36));
-        List<Hrac> poleVitazov = hracDao.dajPodlaId(rs.getInt(37));
+        turnaj.setId(rs.getInt(36));
+        turnaj.setNazov(rs.getString(37));
+        turnaj.setRok(rs.getInt(38));
+        List<Hrac> poleVitazov = hracDao.dajPodlaId(rs.getInt(39));
         if (poleVitazov.isEmpty()) {
             turnaj.setVitaz(null);
         } else {
