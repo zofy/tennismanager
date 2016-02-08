@@ -2,8 +2,11 @@ package sk.upjs.ics.tennismanager;
 
 import java.awt.Color;
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class MainForm extends javax.swing.JFrame {
 
@@ -20,8 +23,21 @@ public class MainForm extends javax.swing.JFrame {
 
         zarovnajCislaVTabulkach();
 
+        vsJlabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+        this.naplnComboBox();
+        AutoCompleteDecorator.decorate(this.hrac1ComboBox);
+        AutoCompleteDecorator.decorate(this.hrac2ComboBox);
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
+    }
+
+    public void naplnComboBox() {
+        for (Hrac h : hracDao.dajVsetky()) {
+            hrac1ComboBox.addItem(h);
+            hrac2ComboBox.addItem(h);
+        }
+        hrac1ComboBox.setSelectedItem(null);
+        hrac2ComboBox.setSelectedItem(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,6 +58,10 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         turnajTable = new javax.swing.JTable();
         novyZapasButton = new javax.swing.JButton();
+        stavkovyPoradcaTab = new javax.swing.JPanel();
+        hrac1ComboBox = new javax.swing.JComboBox();
+        hrac2ComboBox = new javax.swing.JComboBox();
+        vsJlabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tennis manager");
@@ -183,6 +203,37 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         tabbedPane.addTab("Turnaje", turnajeTab);
+
+        stavkovyPoradcaTab.setBackground(new java.awt.Color(204, 255, 204));
+
+        vsJlabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        vsJlabel.setText("VS");
+
+        javax.swing.GroupLayout stavkovyPoradcaTabLayout = new javax.swing.GroupLayout(stavkovyPoradcaTab);
+        stavkovyPoradcaTab.setLayout(stavkovyPoradcaTabLayout);
+        stavkovyPoradcaTabLayout.setHorizontalGroup(
+            stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stavkovyPoradcaTabLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(hrac1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(vsJlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(hrac2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+        );
+        stavkovyPoradcaTabLayout.setVerticalGroup(
+            stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stavkovyPoradcaTabLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hrac1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hrac2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vsJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(201, Short.MAX_VALUE))
+        );
+
+        tabbedPane.addTab("Stávkový poradca", stavkovyPoradcaTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -343,6 +394,8 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox hrac1ComboBox;
+    private javax.swing.JComboBox hrac2ComboBox;
     private javax.swing.JTable hracTable;
     private javax.swing.JPanel hraciTab;
     private javax.swing.JScrollPane jScrollPane1;
@@ -352,10 +405,12 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton odstranitTurnajButton;
     private javax.swing.JButton pridatHracaButton;
     private javax.swing.JButton pridatTurnajButton;
+    private javax.swing.JPanel stavkovyPoradcaTab;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable turnajTable;
     private javax.swing.JPanel turnajeTab;
     private javax.swing.JButton upravitHracaButton;
     private javax.swing.JButton upravitTurnajButton;
+    private javax.swing.JLabel vsJlabel;
     // End of variables declaration//GEN-END:variables
 }

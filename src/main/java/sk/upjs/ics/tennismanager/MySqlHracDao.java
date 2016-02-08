@@ -14,7 +14,7 @@ public class MySqlHracDao implements HracDao {
 
     @Override
     public List<Hrac> dajVsetky() {
-        String sql = "SELECT * FROM hrac";
+        String sql = "SELECT * FROM hrac order by uspesnost desc";
         BeanPropertyRowMapper<Hrac> mapper = BeanPropertyRowMapper.newInstance(Hrac.class);
 
         return jdbcTemplate.query(sql, mapper);
