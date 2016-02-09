@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.jdbc.core.RowCallbackHandler;
 
-
 public class ZapasRowCallbackHandler implements RowCallbackHandler {
+
     private List<Zapas> zapasy = new LinkedList<>();
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
-    
+
     @Override
     public void processRow(ResultSet rs) throws SQLException {
         Hrac hrac1 = new Hrac();
@@ -23,23 +23,25 @@ public class ZapasRowCallbackHandler implements RowCallbackHandler {
         hrac1.setPocetPrehier(rs.getInt(24));
         hrac1.setNajrychlejsiePodanie(rs.getInt(25));
         hrac1.setUspesnost(rs.getDouble(26)); // tu som pridal
-        
+        hrac1.setKondicia(rs.getFloat(27));
+
         Hrac hrac2 = new Hrac();
-        hrac2.setId(rs.getInt(27));
-        hrac2.setMeno(rs.getString(28));
-        hrac2.setPriezvisko(rs.getString(29));
-        hrac2.setPohlavie(rs.getString(30));
-        hrac2.setKrajina(rs.getString(31));
-        hrac2.setPocetVyhier(rs.getInt(32));
-        hrac2.setPocetPrehier(rs.getInt(33));
-        hrac2.setNajrychlejsiePodanie(rs.getInt(34));
-        hrac2.setUspesnost(rs.getDouble(35));
-        
+        hrac2.setId(rs.getInt(28));
+        hrac2.setMeno(rs.getString(29));
+        hrac2.setPriezvisko(rs.getString(30));
+        hrac2.setPohlavie(rs.getString(31));
+        hrac2.setKrajina(rs.getString(32));
+        hrac2.setPocetVyhier(rs.getInt(33));
+        hrac2.setPocetPrehier(rs.getInt(34));
+        hrac2.setNajrychlejsiePodanie(rs.getInt(35));
+        hrac2.setUspesnost(rs.getDouble(36));
+        hrac2.setKondicia(rs.getFloat(37));
+
         Turnaj turnaj = new Turnaj();
-        turnaj.setId(rs.getInt(36));
-        turnaj.setNazov(rs.getString(37));
-        turnaj.setRok(rs.getInt(38));
-        List<Hrac> poleVitazov = hracDao.dajPodlaId(rs.getInt(39));
+        turnaj.setId(rs.getInt(38));
+        turnaj.setNazov(rs.getString(39));
+        turnaj.setRok(rs.getInt(40));
+        List<Hrac> poleVitazov = hracDao.dajPodlaId(rs.getInt(41));
         if (poleVitazov.isEmpty()) {
             turnaj.setVitaz(null);
         } else {
@@ -67,7 +69,7 @@ public class ZapasRowCallbackHandler implements RowCallbackHandler {
         zapas.setUspesnostPodaniaHrac2(rs.getInt(15));
         zapas.setTyp(rs.getString(16));
         zapas.setSety(rs.getString(17));
-        
+
         zapasy.add(zapas);
     }
 

@@ -1,6 +1,8 @@
 package sk.upjs.ics.tennismanager;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
@@ -46,6 +48,10 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
 
     public PriebehZapasuForm(final Hrac hrac1, final Hrac hrac2, Turnaj turnaj, String typ, int pocetVitaznychSetov) {
         initComponents();
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2);
+
         this.hrac1 = hrac1;
         this.hrac2 = hrac2;
         this.turnaj = turnaj;
@@ -684,6 +690,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
 
             hrac1.setUspesnost((hrac1.getPocetVyhier() / (hrac1.getPocetVyhier() + hrac1.getPocetPrehier())) * 100);
             hrac2.setUspesnost((hrac2.getPocetVyhier() / (hrac2.getPocetVyhier() + hrac2.getPocetPrehier())) * 100);
+            
 
             Zapas zapas = new Zapas();
             zapas.setHrac1(hrac1);

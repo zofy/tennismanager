@@ -54,10 +54,12 @@ public class MySqlHracDao implements HracDao {
                 + " pocetVyhier = ?,"
                 + " pocetPrehier = ?,"
                 + " najrychlejsiePodanie = ?"
+                + " uspesnost = ?"
+                + " kondicia = ?"
                 + " WHERE id = ?;";
         jdbcTemplate.update(sql, hrac.getMeno(), hrac.getPriezvisko(),
                 hrac.getKrajina(), hrac.getPohlavie(), hrac.getPocetVyhier(),
-                hrac.getPocetPrehier(), hrac.getNajrychlejsiePodanie(), hrac.getId());
+                hrac.getPocetPrehier(), hrac.getNajrychlejsiePodanie(), hrac.getUspesnost(), hrac.getKondicia(), hrac.getId());
     }
 
     @Override
@@ -66,4 +68,5 @@ public class MySqlHracDao implements HracDao {
 
         jdbcTemplate.update(sql, hrac.getId());
     }
+
 }

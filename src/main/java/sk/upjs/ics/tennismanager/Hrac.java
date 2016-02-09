@@ -10,7 +10,16 @@ public class Hrac {
     private int pocetVyhier;
     private int pocetPrehier;
     private double uspesnost;
+    private float kondicia;
     private int najrychlejsiePodanie;
+
+    public float getKondicia() {
+        return kondicia;
+    }
+
+    public void setKondicia(float kondicia) {
+        this.kondicia = kondicia;
+    }
 
     public double getUspesnost() {
         return uspesnost;

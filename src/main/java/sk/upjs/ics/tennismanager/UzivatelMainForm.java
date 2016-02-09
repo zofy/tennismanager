@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -37,6 +38,7 @@ public class UzivatelMainForm extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2);
 
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
 
             @Override
@@ -96,6 +98,8 @@ public class UzivatelMainForm extends javax.swing.JFrame {
         hrac1ComboBox = new javax.swing.JComboBox();
         hrac2ComboBox = new javax.swing.JComboBox();
         vsJlabel = new javax.swing.JLabel();
+        vyhodnotButton = new javax.swing.JButton();
+        vysledokLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,12 +157,15 @@ public class UzivatelMainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Turnaje", turnajTab);
 
-        hrac1ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        hrac2ComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         vsJlabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         vsJlabel.setText("VS");
+
+        vyhodnotButton.setText("Vyhodnoť");
+        vyhodnotButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vyhodnotButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout stavkovyPoradcaTabLayout = new javax.swing.GroupLayout(stavkovyPoradcaTab);
         stavkovyPoradcaTab.setLayout(stavkovyPoradcaTabLayout);
@@ -172,6 +179,15 @@ public class UzivatelMainForm extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(hrac2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stavkovyPoradcaTabLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stavkovyPoradcaTabLayout.createSequentialGroup()
+                        .addComponent(vyhodnotButton)
+                        .addGap(215, 215, 215))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stavkovyPoradcaTabLayout.createSequentialGroup()
+                        .addComponent(vysledokLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(101, 101, 101))))
         );
         stavkovyPoradcaTabLayout.setVerticalGroup(
             stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +197,11 @@ public class UzivatelMainForm extends javax.swing.JFrame {
                     .addComponent(hrac1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hrac2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(vsJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(vyhodnotButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vysledokLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Stávkový poradca", stavkovyPoradcaTab);
@@ -221,6 +241,22 @@ public class UzivatelMainForm extends javax.swing.JFrame {
             turnajDetailForm.setVisible(true);
         }
     }//GEN-LAST:event_turnajTableMouseClicked
+
+    private void vyhodnotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhodnotButtonActionPerformed
+        Hrac h1 = (Hrac) hrac1ComboBox.getSelectedItem();
+        Hrac h2 = (Hrac) hrac2ComboBox.getSelectedItem();
+        vysledokLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+
+        if (h1.getKondicia() > h2.getKondicia()) {
+            vysledokLabel.setText(h1.getMeno() + " " + h1.getPriezvisko());
+            return;
+        } else if (h1.getKondicia() < h2.getKondicia()) {
+            vysledokLabel.setText(h2.getMeno() + " " + h2.getPriezvisko());
+            return;
+        }
+        // tu si dam zoznam poslednych piatich zapasov oboch a uvidim ako sa vyvija ich kondicia
+        //podla toho rozhodnem
+    }//GEN-LAST:event_vyhodnotButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,5 +305,7 @@ public class UzivatelMainForm extends javax.swing.JFrame {
     private javax.swing.JPanel turnajTab;
     private javax.swing.JTable turnajTable;
     private javax.swing.JLabel vsJlabel;
+    private javax.swing.JButton vyhodnotButton;
+    private javax.swing.JLabel vysledokLabel;
     // End of variables declaration//GEN-END:variables
 }

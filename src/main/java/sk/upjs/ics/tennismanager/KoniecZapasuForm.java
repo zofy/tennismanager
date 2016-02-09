@@ -3,11 +3,12 @@ package sk.upjs.ics.tennismanager;
 import java.awt.Color;
 
 public class KoniecZapasuForm extends javax.swing.JDialog {
+
     private Zapas zapas;
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
     private ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
     private TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
-    
+
     public KoniecZapasuForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -17,20 +18,28 @@ public class KoniecZapasuForm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.zapas = zapas;
-        
+
         Hrac hrac1 = zapas.getHrac1();
         Hrac hrac2 = zapas.getHrac2();
         hraciLabel.setText(hrac1.getMeno() + " " + hrac1.getPriezvisko() + "  vs  "
-            + hrac2.getMeno() + " " + hrac2.getPriezvisko());
+                + hrac2.getMeno() + " " + hrac2.getPriezvisko());
         if (zapas.getStavHrac1() > zapas.getStavHrac2()) {
             vitazLabel.setText(hrac1.getMeno() + " " + hrac1.getPriezvisko());
         } else {
             vitazLabel.setText(hrac2.getMeno() + " " + hrac2.getPriezvisko());
         }
         priebehLabel.setText(zapas.getSety());
-        
+
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
+    }
+
+    // toto treba implementovat
+    public void nastavKondiciu(Hrac h1, Hrac h2) {
+        float k1 = 0;
+        float k2 = 0;
+        h1.setKondicia(k1);
+        h2.setKondicia(k2);
     }
 
     @SuppressWarnings("unchecked")
@@ -128,11 +137,12 @@ public class KoniecZapasuForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ulozitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulozitButtonActionPerformed
+        nastavKondiciu(zapas.getHrac1(), zapas.getHrac2());
         zapasDao.pridaj(zapas);
         hracDao.upravit(zapas.getHrac1());
         hracDao.upravit(zapas.getHrac2());
         turnajDao.upravit(zapas.getTurnaj());
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_ulozitButtonActionPerformed
 

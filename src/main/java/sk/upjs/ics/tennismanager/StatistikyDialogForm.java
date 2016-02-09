@@ -1,6 +1,8 @@
 package sk.upjs.ics.tennismanager;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class StatistikyDialogForm extends javax.swing.JDialog {
 
@@ -35,6 +37,9 @@ public class StatistikyDialogForm extends javax.swing.JDialog {
         
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2);
     }
 
     @SuppressWarnings("unchecked")
