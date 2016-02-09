@@ -26,7 +26,7 @@ public class HracDetailForm extends javax.swing.JDialog {
 
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
-        
+
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2);
     }
@@ -225,12 +225,16 @@ public class HracDetailForm extends javax.swing.JDialog {
         krajinaLabel.setText(hrac.getKrajina());
         pocetVyhierLabel.setText(String.valueOf(hrac.getPocetVyhier()));
         pocetPrehierLabel.setText(String.valueOf(hrac.getPocetPrehier()));
-        if (hrac.getPocetVyhier() + hrac.getPocetPrehier() == 0) {
-            uspesnostNaVyhruLabel.setText("0 %");
-        } else {
-            double uspesnost = (hrac.getPocetVyhier() * 1.0) / (hrac.getPocetPrehier() + hrac.getPocetVyhier()) * 100;
-            uspesnostNaVyhruLabel.setText(String.valueOf((double) uspesnost) + " %");
-        }
+
+        double uspesnost = hrac.getUspesnost();
+        uspesnostNaVyhruLabel.setText(String.valueOf((double) uspesnost) + " %");
+
+//        if (hrac.getPocetVyhier() + hrac.getPocetPrehier() == 0) {
+//            uspesnostNaVyhruLabel.setText("0 %");
+//        } else {
+//            double uspesnost = (hrac.getPocetVyhier() * 1.0) / (hrac.getPocetPrehier() + hrac.getPocetVyhier()) * 100;
+//            uspesnostNaVyhruLabel.setText(String.valueOf((double) uspesnost) + " %");
+//        }
         najrychlejsiePodanieLabel.setText(String.valueOf(hrac.getNajrychlejsiePodanie()) + " km/h");
         pocetZapasovZaRokLabel.setText(String.valueOf(zapasDao.dajPocetZapasovZaRokPodlaHraca(hrac.getId())));
     }

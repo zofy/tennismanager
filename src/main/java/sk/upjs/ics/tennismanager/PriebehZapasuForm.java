@@ -688,10 +688,6 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 hrac1.setPocetPrehier(hrac1.getPocetPrehier() + 1);
             }
 
-            hrac1.setUspesnost((hrac1.getPocetVyhier() / (hrac1.getPocetVyhier() + hrac1.getPocetPrehier())) * 100);
-            hrac2.setUspesnost((hrac2.getPocetVyhier() / (hrac2.getPocetVyhier() + hrac2.getPocetPrehier())) * 100);
-            
-
             Zapas zapas = new Zapas();
             zapas.setHrac1(hrac1);
             zapas.setHrac2(hrac2);
@@ -720,6 +716,7 @@ public class PriebehZapasuForm extends javax.swing.JFrame {
                 }
             }
 
+            this.dispose();
             KoniecZapasuForm koniecZapasuForm = new KoniecZapasuForm(this, true, zapas);
             koniecZapasuForm.setVisible(true);
         }

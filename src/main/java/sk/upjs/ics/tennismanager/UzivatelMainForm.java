@@ -6,8 +6,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -15,6 +17,8 @@ public class UzivatelMainForm extends javax.swing.JFrame {
 
     HracTableModel hracTableModel = new HracTableModel();
     HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
+
+    ZapasDao zapasDao = DaoFactory.INSTANCE.getZapasDao();
 
     TurnajTableModel turnajTableModel = new TurnajTableModel();
     TurnajDao turnajDao = DaoFactory.INSTANCE.getTurnajDao();
@@ -167,6 +171,8 @@ public class UzivatelMainForm extends javax.swing.JFrame {
             }
         });
 
+        vysledokLabel.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+
         javax.swing.GroupLayout stavkovyPoradcaTabLayout = new javax.swing.GroupLayout(stavkovyPoradcaTab);
         stavkovyPoradcaTab.setLayout(stavkovyPoradcaTabLayout);
         stavkovyPoradcaTabLayout.setHorizontalGroup(
@@ -186,8 +192,8 @@ public class UzivatelMainForm extends javax.swing.JFrame {
                         .addComponent(vyhodnotButton)
                         .addGap(215, 215, 215))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stavkovyPoradcaTabLayout.createSequentialGroup()
-                        .addComponent(vysledokLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(101, 101, 101))))
+                        .addComponent(vysledokLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64))))
         );
         stavkovyPoradcaTabLayout.setVerticalGroup(
             stavkovyPoradcaTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,19 +249,63 @@ public class UzivatelMainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_turnajTableMouseClicked
 
     private void vyhodnotButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhodnotButtonActionPerformed
+        if (hrac1ComboBox.getSelectedItem() == null || hrac2ComboBox.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Zvoľ si hráčov!", "Chyba", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         Hrac h1 = (Hrac) hrac1ComboBox.getSelectedItem();
         Hrac h2 = (Hrac) hrac2ComboBox.getSelectedItem();
         vysledokLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
 
         if (h1.getKondicia() > h2.getKondicia()) {
-            vysledokLabel.setText(h1.getMeno() + " " + h1.getPriezvisko());
+            vysledokLabel.setText(h1.getMeno() + " " + h1.getPriezvisko() + " je tvoja voľba!");
             return;
         } else if (h1.getKondicia() < h2.getKondicia()) {
-            vysledokLabel.setText(h2.getMeno() + " " + h2.getPriezvisko());
+            vysledokLabel.setText(h2.getMeno() + " " + h2.getPriezvisko() + " je tvoja voľba!");
             return;
         }
-        // tu si dam zoznam poslednych piatich zapasov oboch a uvidim ako sa vyvija ich kondicia
-        //podla toho rozhodnem
+        List<List<Integer>> zapasy1 = zapasDao.dajZapasyPodlaHraca(h1.getId());
+        List<List<Integer>> zapasy2 = zapasDao.dajZapasyPodlaHraca(h2.getId());
+        int vysl1 = 0;
+        int vysl2 = 0;
+
+        for (List<Integer> z : zapasy1) {
+            if (z.get(0) == h1.getId()) {
+                if (z.get(2) > z.get(3)) {
+                    vysl1++;
+                } else {
+                    vysl1--;
+                }
+            } else {
+                if (z.get(2) < z.get(3)) {
+                    vysl1++;
+                } else {
+                    vysl1--;
+                }
+            }
+        }
+        for (List<Integer> z : zapasy2) {
+            if (z.get(0) == h1.getId()) {
+                if (z.get(2) > z.get(3)) {
+                    vysl2++;
+                } else {
+                    vysl2--;
+                }
+            } else {
+                if (z.get(2) < z.get(3)) {
+                    vysl2++;
+                } else {
+                    vysl2--;
+                }
+            }
+        }
+        vysl1 = vysl1 / (zapasy1.size());
+        vysl2 = vysl2 / (zapasy2.size());
+        if (vysl1 > vysl2) {
+            vysledokLabel.setText(h1.getMeno() + " " + h1.getPriezvisko() + "\n je tvoja voľba!");
+        } else {
+            vysledokLabel.setText(h2.getMeno() + " " + h2.getPriezvisko() + "\n je tvoja voľba!");
+        }
     }//GEN-LAST:event_vyhodnotButtonActionPerformed
 
     /**

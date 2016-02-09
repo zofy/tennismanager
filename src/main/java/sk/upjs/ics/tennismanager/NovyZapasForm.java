@@ -1,9 +1,12 @@
 package sk.upjs.ics.tennismanager;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.ButtonGroup;
 
 public class NovyZapasForm extends javax.swing.JDialog {
+
     private Turnaj turnaj;
     private HracDao hracDao = DaoFactory.INSTANCE.getHracDao();
     //private Hrac vybranyHrac1;
@@ -18,11 +21,11 @@ public class NovyZapasForm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.turnaj = turnaj;
-        
+
         groupButton();
         naplnTypComboBox();
         naplnHraciComboBox();
-        
+
 //        hrac1ComboBox.addItemListener(new ItemListener() {
 //            @Override
 //            public void itemStateChanged(ItemEvent e) {
@@ -46,9 +49,11 @@ public class NovyZapasForm extends javax.swing.JDialog {
 //                }
 //            }
 //        });
-        
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2);
     }
 
     @SuppressWarnings("unchecked")
@@ -165,7 +170,7 @@ public class NovyZapasForm extends javax.swing.JDialog {
 
     private void zacatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zacatButtonActionPerformed
         this.setVisible(false);
-        
+
         Hrac hrac1 = (Hrac) hrac1ComboBox.getSelectedItem();
         Hrac hrac2 = (Hrac) hrac2ComboBox.getSelectedItem();
         String typ = (String) typComboBox.getSelectedItem();
@@ -188,7 +193,7 @@ public class NovyZapasForm extends javax.swing.JDialog {
         bg.add(sety3RadioButton);
         bg.add(sety4RadioButton);
     }
-    
+
     private void naplnTypComboBox() {
         typComboBox.addItem("1. kolo");
         typComboBox.addItem("2. kolo");
@@ -197,7 +202,7 @@ public class NovyZapasForm extends javax.swing.JDialog {
         typComboBox.addItem("Semifinále");
         typComboBox.addItem("Finále");
     }
-    
+
     private void naplnHraciComboBox() {
         for (Hrac hrac : hracDao.dajVsetky()) {
             hrac1ComboBox.addItem(hrac);

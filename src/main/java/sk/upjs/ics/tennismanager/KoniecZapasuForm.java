@@ -1,6 +1,8 @@
 package sk.upjs.ics.tennismanager;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class KoniecZapasuForm extends javax.swing.JDialog {
 
@@ -32,14 +34,55 @@ public class KoniecZapasuForm extends javax.swing.JDialog {
 
         Color color = new Color(204, 255, 204);
         this.getContentPane().setBackground(color);
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2);
     }
 
-    // toto treba implementovat
     public void nastavKondiciu(Hrac h1, Hrac h2) {
-        float k1 = 0;
-        float k2 = 0;
+        float k1 = h1.getKondicia();
+        float k2 = h2.getKondicia();
+
+        int pocetSetov = zapas.getStavHrac1() + zapas.getStavHrac2();
+        double vysl1 = zapas.getStavHrac1() - (pocetSetov - zapas.getStavHrac1()) * 0.5;
+        double vysl2 = zapas.getStavHrac2() - (pocetSetov - zapas.getStavHrac2()) * 0.5;
+
+        if (k1 < k2) {
+            if (vysl1 < 0) {
+                k1 += vysl1 * (k2 - k1) / 100;
+                k2 += vysl2 * (k2 - k1) / 100;
+            } else {
+                k1 += vysl1 * k2 / 100;
+                k2 += vysl2 * k1 / 100;
+            }
+        } else if (k1 > k2) {
+            if (vysl1 < 0) {
+                k1 += vysl1 * k2 / 100;
+                k2 += vysl2 * k1 / 100;
+            } else {
+                k1 += vysl1 * (k1 - k2) / 100;
+                k2 += vysl2 * (k1 - k2) / 100;
+            }
+        } else {
+            k1 += vysl1 * k2 / 100;
+            k2 += vysl2 * k1 / 100;
+        }
+        if (k1 < 0.1) {
+            k1 = (float) 0.1;
+        }
+        if (k2 < 0.1) {
+            k2 = (float) 0.1;
+        }
         h1.setKondicia(k1);
         h2.setKondicia(k2);
+    }
+
+    public void nastavUspesnost(Hrac h1, Hrac h2) {
+        double u1 = ((h1.getPocetVyhier() * 1.0) / (h1.getPocetVyhier() + h1.getPocetPrehier())) * 100;
+        double u2 = ((h2.getPocetVyhier() * 1.0) / (h2.getPocetVyhier() + h2.getPocetPrehier())) * 100;
+
+        h1.setUspesnost(u1);
+        h2.setUspesnost(u2);
     }
 
     @SuppressWarnings("unchecked")
@@ -138,12 +181,15 @@ public class KoniecZapasuForm extends javax.swing.JDialog {
 
     private void ulozitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulozitButtonActionPerformed
         nastavKondiciu(zapas.getHrac1(), zapas.getHrac2());
+        nastavUspesnost(zapas.getHrac1(), zapas.getHrac2());
+
         zapasDao.pridaj(zapas);
         hracDao.upravit(zapas.getHrac1());
         hracDao.upravit(zapas.getHrac2());
         turnajDao.upravit(zapas.getTurnaj());
 
-        this.setVisible(false);
+        this.dispose();
+        new MainForm().setVisible(true);
     }//GEN-LAST:event_ulozitButtonActionPerformed
 
     public static void main(String args[]) {
