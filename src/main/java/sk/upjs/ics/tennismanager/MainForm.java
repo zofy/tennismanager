@@ -337,6 +337,8 @@ public class MainForm extends javax.swing.JFrame {
         int vybranyRiadok = hracTable.getSelectedRow();
         Hrac hrac = hracTableModel.dajPodlaCislaRiadku(vybranyRiadok);
 
+        this.dispose();
+
         HracForm hracForm = new HracForm(this, true, hrac);
         hracForm.setVisible(true);
 
@@ -346,6 +348,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void pridatHracaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridatHracaButtonActionPerformed
         HracForm hracForm = new HracForm(this, true, null);
+        this.dispose();
         hracForm.setVisible(true);
 
         refreshHraci();
